@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "Tree utils library.",
   "keywords": [],
-  "repository": "",
-  "homepage": "",
+  "repository": "https://github.com/Raiper34/tree-utils",
+  "homepage": "https://github.com/Raiper34/tree-utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
