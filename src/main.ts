@@ -44,6 +44,7 @@ export class TreeUtils {
   static addNode(tree: any[], parentId: any, child: any): void {
     if (parentId == null) {
       tree.push(child);
+      return;
     }
     const index = tree.findIndex(item => item.id == parentId);
     if (index != -1) {

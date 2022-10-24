@@ -2,7 +2,7 @@
 Tree utils library. 
 
 # Instalation
-`npm install tree-utils --save`
+`npm install simple-tree-utils --save`
 
 # Usage
 todo
