@@ -1,4 +1,4 @@
-import {TreeUtils} from "../src/main";
+import {TreeUtils} from "../src";
 
 
 const LIST_MOCK_ITEMS = [
@@ -28,22 +28,25 @@ const TREE_MOCK_ITEMS = [
   },
 ];
 
-describe('', () => {
-  it('1', () => {
-    expect(TreeUtils.list2Tree(LIST_MOCK_ITEMS)).toEqual(TREE_MOCK_ITEMS);
+const treeUtils = new TreeUtils();
+
+describe('Tree utils methods', () => {
+
+  it('should convert list to tree', () => {
+    expect(treeUtils.list2Tree(LIST_MOCK_ITEMS)).toEqual(TREE_MOCK_ITEMS);
   });
 
-  it('2', () => {
-    expect(TreeUtils.tree2List(TREE_MOCK_ITEMS).sort((a: any, b: any) => a.id - b.id)).toEqual(LIST_MOCK_ITEMS);
+  it('should convert tree to list', () => {
+    expect(treeUtils.tree2List(TREE_MOCK_ITEMS).sort((a: any, b: any) => a.id - b.id)).toEqual(LIST_MOCK_ITEMS);
   });
 
-  it('3', () => {
-    expect(TreeUtils.findTreeNodeById(TREE_MOCK_ITEMS, 6)).toEqual({id: 6, parentId: 3, name: 'Node 6', children: []});
+  it('should find node by given id', () => {
+    expect(treeUtils.findTreeNodeById(TREE_MOCK_ITEMS, 6)).toEqual({id: 6, parentId: 3, name: 'Node 6', children: []});
   });
 
-  it('4', () => {
+  it('should delete node by given id', () => {
     const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
-    TreeUtils.deleteNode(mock, 6);
+    treeUtils.deleteNode(mock, 6);
     const out = [
       {
         id: 1, parentId: null, name: 'Node 1', children: [
@@ -62,9 +65,9 @@ describe('', () => {
     expect(mock).toEqual(out);
   });
 
-  it('5', () => {
+  it('should add node to parent with given id', () => {
     const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
-    TreeUtils.addNode(mock, 4, {id: 7, parentId: 4, name: 'Node 7', children: []});
+    treeUtils.addNode(mock, 4, {id: 7, parentId: 4, name: 'Node 7', children: []});
     const out = [
       {
         id: 1, parentId: null, name: 'Node 1', children: [
@@ -87,9 +90,9 @@ describe('', () => {
     expect(mock).toEqual(out);
   });
 
-  it('6', () => {
+  it('should edit node of given id by given data', () => {
     const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
-    TreeUtils.editNode(mock, 5, {id: 5, parentId: 2, name: 'Node 5 edited', children: []});
+    treeUtils.editNode(mock, 5, {id: 5, parentId: 2, name: 'Node 5 edited', children: []});
     const out = [
       {
         id: 1, parentId: null, name: 'Node 1', children: [

@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export class TreeUtils {
 
-  static list2Tree(list: any[], parentId: any = null): any[] {
-    return this.deepCopy(list)
+  list2Tree(list: any[], parentId: any = null): any[] {
+    return TreeUtils.deepCopy(list)
       .filter((item: any) => item.parentId === parentId)
       .map((item: any) => ({
         ...item,
@@ -9,8 +10,8 @@ export class TreeUtils {
       }));
   }
 
-  static tree2List(tree: any[], parentId: any = null): any[] {
-    return this.deepCopy(tree).reduce((acc: any, curr: any) => {
+  tree2List(tree: any[], parentId: any = null): any[] {
+    return TreeUtils.deepCopy(tree).reduce((acc: any, curr: any) => {
       const {children, ...rest} = curr;
       return [
         ...acc,
@@ -20,11 +21,11 @@ export class TreeUtils {
     }, [])
   }
 
-  static findTreeNodeById(tree: any[], id: any): any {
+  findTreeNodeById(tree: any[], id: any): any {
     return this.findTreeNode(tree, item => item.id === id);
   }
 
-  static findTreeNode(tree: any[], fn: (item: any) => boolean): any {
+  findTreeNode(tree: any[], fn: (item: any) => boolean): any {
     const node = tree.find(item => fn(item));
     if (node) {
       return node;
@@ -34,7 +35,7 @@ export class TreeUtils {
     );
   }
 
-  static deleteNode(tree: any[], id: any): any {
+  deleteNode(tree: any[], id: any): any {
     const index = tree.findIndex(item => item.id == id);
     if (index != -1) {
       return tree.splice(index, 1)[0];
@@ -42,7 +43,7 @@ export class TreeUtils {
     return tree.reduce((acc, curr) => acc || this.deleteNode(curr.children, id), null);
   }
 
-  static addNode(tree: any[], parentId: any, childData: any): void {
+  addNode(tree: any[], parentId: any, childData: any): void {
     if (parentId == null) {
       tree.push(childData);
       return;
@@ -55,7 +56,7 @@ export class TreeUtils {
     tree.forEach(item => this.addNode(item.children, parentId, childData));
   }
 
-  static editNode(tree: any[], id: any, data: any): void {
+  editNode(tree: any[], id: any, data: any): void {
     const index = tree.findIndex(item => item.id == id);
     if (index != -1) {
       tree[index] = {id: tree[index].id, children: [], ...data};
@@ -68,3 +69,4 @@ export class TreeUtils {
     return JSON.parse(JSON.stringify(obj));
   }
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
