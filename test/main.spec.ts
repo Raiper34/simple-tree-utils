@@ -112,4 +112,32 @@ describe('Tree utils methods', () => {
     ]
     expect(mock).toEqual(out);
   });
+
+  it('should find parent of node', () => {
+    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
+    expect(treeUtils.findNodeParent(mock, 6).id).toBe(3);
+    expect(treeUtils.findNodeParent(mock, 1)).toBeNull();
+  });
+
+  it('should find ALL parents of node', () => {
+    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
+    expect(treeUtils.findAllParentNodes(mock, 6).map((item: any) => item.id)).toEqual([1, 3]);
+    expect(treeUtils.findAllParentNodes(mock, 4).map((item: any) => item.id)).toEqual([1]);
+    expect(treeUtils.findAllParentNodes(mock, 5).map((item: any) => item.id)).toEqual([2]);
+    expect(treeUtils.findAllParentNodes(mock, 1).map((item: any) => item.id)).toEqual([]);
+  });
+
+  it('should find ALL children of node', () => {
+    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
+    expect(treeUtils.findAllChildrenNodes(mock, 1).map((item: any) => item.id)).toEqual([3, 4, 6]);
+    expect(treeUtils.findAllChildrenNodes(mock, 2).map((item: any) => item.id)).toEqual([5]);
+    expect(treeUtils.findAllChildrenNodes(mock, 5).map((item: any) => item.id)).toEqual([]);
+  });
+
+  it('should find ALL nodes that match callback', () => {
+    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
+    expect(treeUtils.findAllTreeNodes(mock, item => item.id % 2 === 0).map((item: any) => item.id)).toEqual([2, 4, 6]);
+    expect(treeUtils.findAllTreeNodes(mock, item => item.id % 3 === 0).map((item: any) => item.id)).toEqual([3, 6]);
+    expect(treeUtils.findAllTreeNodes(mock, item => item.name.includes('Node')).map((item: any) => item.id)).toEqual([1, 2, 3, 4, 6, 5]);
+  });
 });
