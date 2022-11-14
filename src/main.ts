@@ -46,7 +46,7 @@ export class TreeUtils {
    */
   tree2List(tree: any[], parentId: any = null): any[] {
     return TreeUtils.deepCopy(tree).reduce((acc: any, curr: any) => {
-      const {children = [this.childrenProp], ...rest} = curr;
+      const {[this.childrenProp]: children, ...rest} = curr;
       return [
         ...acc,
         {...rest, [this.parentIdProp]: parentId},
