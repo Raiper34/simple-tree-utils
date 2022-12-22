@@ -1,13 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-interface IConfig {
+/**
+ * IConfig interface for configuring whole class during instantiating
+ */
+export interface IConfig {
+  /**
+   * Name of unique identifier property in nodes
+   */
   idProp?: string,
+  /**
+   * Name of parent identifier property in nodes
+   */
   parentIdProp?: string,
+  /**
+   * Name of property where child nodes are stored
+   */
   childrenProp?: string,
 }
 
+/**
+ * Default name of unique identifier property in nodes
+ */
 const DEFAULT_ID_PROP = 'id';
+/**
+ * Default name of parent identifier property in nodes
+ */
 const DEFAULT_PARENT_ID_PROP = 'parentId';
+/**
+ * Default name of property where child nodes are stored
+ */
 const DEFAULT_CHILDREN_PROP = 'children';
 
 /**
@@ -15,10 +36,23 @@ const DEFAULT_CHILDREN_PROP = 'children';
  */
 export class TreeUtils {
 
+  /**
+   * Name of unique identifier property in nodes (default value is `id`)
+   */
   private readonly idProp: string;
+  /**
+   * Name of parent identifier property in nodes (default value is `parentId`)
+   */
   private readonly parentIdProp: string;
+  /**
+   * Name of property where child nodes are stored (default value is `children`)
+   */
   private readonly childrenProp: string;
 
+  /**
+   * Constructor of class
+   * @param config - to configure class, if configuration option is omitted, default one is used
+   */
   constructor(config?: IConfig) {
     this.idProp = config?.idProp || DEFAULT_ID_PROP;
     this.parentIdProp = config?.parentIdProp || DEFAULT_PARENT_ID_PROP;
@@ -27,7 +61,7 @@ export class TreeUtils {
 
   /**
    * Convert list to tree like structure
-   * @param list list of objects (object need to have id and parentId)
+   * @param list list of objects, objects need to have id (as you configured, or 'id' by default) and parentId property (as you configured, or 'parentId' by default)
    * @param parentId id of parent node
    */
   list2Tree(list: any[], parentId: any = null): any[] {
@@ -41,7 +75,7 @@ export class TreeUtils {
 
   /**
    * Convert tree like structure to list
-   * @param tree tree of objects (object need to have child property and parentId)
+   * @param tree tree of objects, objects need to have children (as you configured, or 'children' by default) and parentId property (as you configured, or 'parentId' by default)
    * @param parentId
    */
   tree2List(tree: any[], parentId: any = null): any[] {
@@ -55,10 +89,26 @@ export class TreeUtils {
     }, [])
   }
 
+  /**
+   * Method to find node in tree structure by given id
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   * @returns found node
+   */
   findTreeNodeById(tree: any[], id: any): any {
     return this.findTreeNode(tree, item => item[this.idProp] === id);
   }
 
+  /**
+   * Method to find node in tree structure by given callback function
+   * @param tree - tree structure to search in
+   * @param fn - callback function to find node
+   * @returns found node
+   * @example
+   * ```ts
+   * utils.findTreeNode(tree, item => item.id === myId);
+   * ```
+   */
   findTreeNode(tree: any[], fn: (item: any) => boolean): any {
     const node = tree.find(item => fn(item));
     if (node) {
@@ -69,6 +119,16 @@ export class TreeUtils {
     );
   }
 
+  /**
+   * Method to find all nodes in tree structure by given callback function
+   * @param tree - tree structure to search in
+   * @param fn - callback function to find all nodes
+   * @returns all found nodes
+   * @example
+   * ```ts
+   * utils.findAllTreeNodes(tree, item => item.id === myId);
+   * ```
+   */
   findAllTreeNodes(tree: any[], fn: (item: any) => boolean): any {
     const nodes = tree.filter(item => fn(item));
     return tree.reduce((acc, curr) => (
@@ -76,6 +136,11 @@ export class TreeUtils {
     ), nodes);
   }
 
+  /**
+   * Method to delete node in tree by given id (mutable operation!)
+   * @param tree - tree structure for node deleting
+   * @param id - identifier of node to delete
+   */
   deleteNode(tree: any[], id: any): any {
     const index = tree.findIndex(item => item[this.idProp] == id);
     if (index != -1) {
@@ -84,6 +149,12 @@ export class TreeUtils {
     return tree.reduce((acc, curr) => acc || this.deleteNode(curr[this.childrenProp], id), null);
   }
 
+  /**
+   * Method to add new node to tree (mutable operation!)
+   * @param tree - tree structure for node adding
+   * @param parentId - identifier of parent node, null if new node should be on root level
+   * @param childData - data of new node
+   */
   addNode(tree: any[], parentId: any, childData: any): void {
     if (parentId == null) {
       tree.push(childData);
@@ -97,6 +168,12 @@ export class TreeUtils {
     tree.forEach(item => this.addNode(item[this.childrenProp], parentId, childData));
   }
 
+  /**
+   * Method to update node by id with given data in tree (mutable operation!)
+   * @param tree - tree structure for node editing
+   * @param id - identifier of node to be updated
+   * @param data - new data of node (you should also pass children if you want to keep it)
+   */
   editNode(tree: any[], id: any, data: any): void {
     const index = tree.findIndex(item => item[this.idProp] == id);
     if (index != -1) {
@@ -106,6 +183,12 @@ export class TreeUtils {
     tree.forEach(item => this.editNode(item[this.childrenProp], id, data));
   }
 
+  /**
+   * Method to find all children nodes of given node in tree structure
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   * @returns all found children nodes
+   */
   findAllChildrenNodes(tree: any[], id: any): any[] {
     const node = this.findTreeNodeById(tree, id);
     return node ? [
@@ -114,6 +197,12 @@ export class TreeUtils {
     ] : [];
   }
 
+  /**
+   * Helper method to recursively get all children nodes of given node in tree structure
+   * @param node - we want to get all of its children
+   * @returns all found children nodes
+   * @private
+   */
   private getChildrenNodes(node: any): any[] {
     return [
       ...node[this.childrenProp],
@@ -121,6 +210,12 @@ export class TreeUtils {
     ];
   }
 
+  /**
+   * Method to find all parents of given node in tree structure
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   * @returns all found parent nodes
+   */
   findAllParentNodes(tree: any[], id: any): any[] {
     const parents = [];
     let parent = this.findNodeParent(tree, id);
@@ -131,6 +226,13 @@ export class TreeUtils {
     return parents.reverse();
   }
 
+  /**
+   * Method to find parent of given node in tree structure
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   * @param parent - parent node, if we found something (for recursion only)
+   * @returns found parent node
+   */
   findNodeParent(tree: any[], id: any, parent: any = null): any {
     const node = tree.find(item => item[this.idProp] === id);
     if (node) {
@@ -141,6 +243,12 @@ export class TreeUtils {
     );
   }
 
+  /**
+   * Helper method to deep clone object
+   * @param obj - object to be cloned
+   * @private
+   * @returns deep cloned object
+   */
   private static deepCopy(obj: any): any {
     return JSON.parse(JSON.stringify(obj));
   }

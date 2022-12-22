@@ -14,7 +14,7 @@
     "test:ci": "nyc -r lcov jasmine-ts --config=jasmine.json && cat ./coverage/lcov.info | coveralls",
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint ./src --fix",
-    "docs": "npx typedoc src/index.ts",
+    "docs": "npx typedoc src/main.ts",
     "publish": "npm run build && npm publish"
   },
   "author": "Raiper34",
