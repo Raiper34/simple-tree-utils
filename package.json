@@ -1,10 +1,10 @@
 {
   "name": "simple-tree-utils",
-  "version": "1.0.0",
-  "description": "Tree utils library.",
-  "keywords": [],
+  "version": "1.0.1",
+  "description": "Simple Tree Utils is the library to convert and manipulate with tree-like structures.",
+  "keywords": ["tree", "tree utilities", "tree utils", "tree structure", "tree manipulation", "tree converter"],
   "repository": "https://github.com/Raiper34/tree-utils",
-  "homepage": "https://github.com/Raiper34/tree-utils",
+  "homepage": "https://simple-tree-utils.netlify.app",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
