@@ -1,3 +1,11 @@
+[![npm version](https://badge.fury.io/js/simple-tree-utils.svg)](https://badge.fury.io/js/simple-tree-utils)
+[![CircleCI](https://circleci.com/gh/Raiper34/simple-tree-utils.svg?style=shield)](https://circleci.com/gh/Raiper34/simple-tree-utils)
+[![Coverage Status](https://coveralls.io/repos/github/Raiper34/simple-tree-utils/badge.svg?branch=main)](https://coveralls.io/github/Raiper34/simple-tree-utils?branch=main)
+![npm bundle size](https://img.shields.io/bundlephobia/min/simple-tree-utils)
+![NPM](https://img.shields.io/npm/l/simple-tree-utils)
+[![docs](https://badgen.net/badge/docs/online/orange)](https://simple-tree-utils.netlify.app)
+[![](https://data.jsdelivr.com/v1/package/npm/simple-tree-utils/badge?style=rounded)](https://www.jsdelivr.com/package/npm/simple-tree-utils)
+
 # Simple Tree Utils
 Simple Tree Utils is the library to convert and manipulate with tree-like structures.
 Library provides converter from an array of objects to trees like structure and vice versa,
