@@ -89,5 +89,16 @@ treeUtils.tree2List(tree);
 # Documentation
 For more details and complete documentation check: https://simple-tree-utils.netlify.app/
 
+# Usage in browser
+You can also use this library in the browser without compiling using jsDelivr.
+Import script into HTML file, and you can access classes through the global `treeUtils` object.
+```html
+<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@1/dist/browser-bundle.min.js"></script>
+<script>
+    const utils = new treeUtils.TreeUtils();
+    const tree = utils.list2Tree(items);
+</script>
+```
+
 # License
 MIT
