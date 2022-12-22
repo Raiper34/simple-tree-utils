@@ -15,6 +15,7 @@
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint ./src --fix",
     "docs": "npx typedoc src/main.ts",
+    "deploy": "npm run docs && netlify deploy --dir=docs --prod",
     "publish": "npm run build && npm publish"
   },
   "author": "Raiper34",

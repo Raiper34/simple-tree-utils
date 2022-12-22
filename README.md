@@ -68,6 +68,7 @@ When you got a structure like the above, you can use all the following methods:
 | **findNodeParent** | Method to find parent of given node in tree structure | `findNodeParent(tree: any[], id: any, parent?: any): any` |
 | **findTreeNode** | Method to find node in tree structure by given callback function | `findTreeNode(tree: any[], fn: ((item: any) => boolean)): any` |
 | **findTreeNodeById** | Method to find node in tree structure by given id | `findTreeNodeById(tree: any[], id: any): any` |
+
 For example, we can find node by giving callback
 ```ts
 const node = treeUtils.findTreeNode(tree, item => item.id === 2);
@@ -78,7 +79,7 @@ treeUtils.tree2List(tree);
 ```
 
 # Documentation
-For more details and complete documentation check:
+For more details and complete documentation check: https://simple-tree-utils.netlify.app/
 
 # License
 MIT
