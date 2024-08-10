@@ -2,7 +2,14 @@
   "name": "simple-tree-utils",
   "version": "1.0.1",
   "description": "Simple Tree Utils is the library to convert and manipulate with tree-like structures.",
-  "keywords": ["tree", "tree utilities", "tree utils", "tree structure", "tree manipulation", "tree converter"],
+  "keywords": [
+    "tree",
+    "tree utilities",
+    "tree utils",
+    "tree structure",
+    "tree manipulation",
+    "tree converter"
+  ],
   "repository": "https://github.com/Raiper34/tree-utils",
   "homepage": "https://simple-tree-utils.netlify.app",
   "main": "dist/index.js",
@@ -16,7 +23,7 @@
     "lint:fix": "npx eslint ./src --fix",
     "docs": "npx typedoc src/main.ts",
     "deploy": "npm run docs && netlify deploy --dir=docs --prod",
-    "publish": "npm run build && npm publish"
+    "release": "npm run build && npm publish"
   },
   "author": "Raiper34",
   "license": "MIT",
@@ -29,9 +36,10 @@
     "eslint": "^8.23.0",
     "jasmine": "^3.6.4",
     "jasmine-ts": "^0.4.0",
+    "netlify-cli": "^10.5.0",
     "nyc": "^15.1.0",
     "ts-node": "^9.1.1",
-    "typedoc": "^0.22.18",
+    "typedoc": "^0.23.15",
     "typescript": "^4.8.3",
     "uglify-js": "^3.17.0"
   }
