@@ -1,1 +1,1 @@
-export {TreeUtils} from './main';
+export {IConfig, TreeUtils} from './main';
