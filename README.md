@@ -1,10 +1,12 @@
 [![npm version](https://badge.fury.io/js/simple-tree-utils.svg)](https://badge.fury.io/js/simple-tree-utils)
-[![CircleCI](https://circleci.com/gh/Raiper34/simple-tree-utils.svg?style=shield)](https://circleci.com/gh/Raiper34/simple-tree-utils)
-[![Coverage Status](https://coveralls.io/repos/github/Raiper34/simple-tree-utils/badge.svg?branch=main)](https://coveralls.io/github/Raiper34/simple-tree-utils?branch=main)
+[![docs](https://badgen.net/badge/docs/online/orange)](https://simple-tree-utils.netlify.app)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/simple-tree-utils)
 ![NPM](https://img.shields.io/npm/l/simple-tree-utils)
-[![docs](https://badgen.net/badge/docs/online/orange)](https://simple-tree-utils.netlify.app)
+[![CircleCI](https://circleci.com/gh/Raiper34/simple-tree-utils.svg?style=shield)](https://circleci.com/gh/Raiper34/simple-tree-utils)
+[![Coverage Status](https://coveralls.io/repos/github/Raiper34/simple-tree-utils/badge.svg?branch=main)](https://coveralls.io/github/Raiper34/simple-tree-utils?branch=main)
+[![npm](https://img.shields.io/npm/dt/simple-tree-utils)](https://badge.fury.io/js/simple-tree-utils)
 [![](https://data.jsdelivr.com/v1/package/npm/simple-tree-utils/badge?style=rounded)](https://www.jsdelivr.com/package/npm/simple-tree-utils)
+[![GitHub Repo stars](https://img.shields.io/github/stars/raiper34/simple-tree-utils)](https://github.com/Raiper34/simple-tree-utils)
 
 # Simple Tree Utils
 Simple Tree Utils is the library to convert and manipulate with tree-like structures.
@@ -17,11 +19,21 @@ Surely there are plenty of similar libraries, but I think all of them work with 
 models/classes, I needed to use my own data without no extra instantiating,
 or adding extra methods/properties into the working model.
 
-# Instalation
+### Content
+- [🚀 Instalation](#-instalation)
+- [📚 Documentation](#-documentation)
+- [💻 Usage](#-usage)
+    - [🌐 Usage in browser](#usage-in-browser)
+- [📖 License](#-license)
+
+# 🚀 Instalation
 Install library using npm `npm install simple-tree-utils --save` and import main class
 into your code base `import {TreeUtils} from 'simple-tree-utils';` .
 
-# Usage
+# 📚 Documentation
+For more details and complete documentation check: https://simple-tree-utils.netlify.app/
+
+# 💻 Usage
 First instantiate class with config, or without config.
 ```ts
 const treeUtils = new TreeUtils(); // without config, default values are used (id as idProp, parentId as parentIdProp, children as childrenProp)
@@ -86,10 +98,7 @@ If you need a list again, you can convert the tree back to a list using `treeUti
 treeUtils.tree2List(tree);
 ```
 
-# Documentation
-For more details and complete documentation check: https://simple-tree-utils.netlify.app/
-
-# Usage in browser
+# 🌐 Usage in browser
 You can also use this library in the browser without compiling using jsDelivr.
 Import script into HTML file, and you can access classes through the global `treeUtils` object.
 ```html
@@ -100,5 +109,5 @@ Import script into HTML file, and you can access classes through the global `tre
 </script>
 ```
 
-# License
+# 📖 License
 MIT
