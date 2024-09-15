@@ -244,6 +244,33 @@ export class TreeUtils {
   }
 
   /**
+   * Method to get children of given node in tree structure
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   */
+  getChildren(tree: any[], id: any): any[] {
+    return this.findById(tree, id)[this.childrenProp];
+  }
+
+  /**
+   * Method to get neighbours (neighbour is parent or child) of given node in tree structure
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   */
+  getNeighbours(tree: any[], id: any): any {
+    return [this.getParent(tree, id), ...this.getChildren(tree, id)].filter(item => item);
+  }
+
+  /**
+   * Method to get siblings of given node in tree structure
+   * @param tree
+   * @param id
+   */
+  getSiblings(tree: any[], id: any): any {
+    return (this.getParent(tree, id)?.[this.childrenProp] || []).filter((item: any) => item[this.idProp] !== id);
+  }
+
+  /**
    * Helper method to deep clone object
    * @param obj - object to be cloned
    * @private

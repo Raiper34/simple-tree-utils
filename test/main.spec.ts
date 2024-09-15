@@ -36,6 +36,12 @@ const treeUtils = new TreeUtils({
 
 describe('Tree utils methods', () => {
 
+  let mock: any;
+
+  beforeEach(() => {
+    mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
+  })
+
   it('should setup converter with defaults when parameter is not provided', () => {
     const treeUtils = new TreeUtils();
     expect(treeUtils.list2Tree([{id: 1, parentId: null, name: 'Node 1'}]))
@@ -63,7 +69,6 @@ describe('Tree utils methods', () => {
   });
 
   it('should delete node by given customId', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     treeUtils.delete(mock, 6);
     const out = [
       {
@@ -84,7 +89,6 @@ describe('Tree utils methods', () => {
   });
 
   it('should add node to parent with given customId', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     treeUtils.add(mock, 4, {customId: 7, parentCustomId: 4, name: 'Node 7', customChildren: []});
     const out = [
       {
@@ -109,7 +113,6 @@ describe('Tree utils methods', () => {
   });
 
   it('should add node to root', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     treeUtils.add(mock, null, {customId: 7, parentCustomId: 4, name: 'Node 7', customChildren: []});
     const out = [
       {
@@ -133,7 +136,6 @@ describe('Tree utils methods', () => {
   });
 
   it('should edit node of given customId by given data', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     treeUtils.edit(mock, 5, {customId: 5, parentCustomId: 2, name: 'Node 5 edited', customChildren: []});
     const out = [
       {
@@ -156,13 +158,11 @@ describe('Tree utils methods', () => {
   });
 
   it('should find parent of node', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     expect(treeUtils.getParent(mock, 6).customId).toBe(3);
     expect(treeUtils.getParent(mock, 1)).toBeNull();
   });
 
   it('should get ancestors of node', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     expect(treeUtils.getAncestors(mock, 6).map((item: any) => item.customId)).toEqual([1, 3]);
     expect(treeUtils.getAncestors(mock, 4).map((item: any) => item.customId)).toEqual([1]);
     expect(treeUtils.getAncestors(mock, 5).map((item: any) => item.customId)).toEqual([2]);
@@ -170,21 +170,30 @@ describe('Tree utils methods', () => {
   });
 
   it('should get descendants of node', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     expect(treeUtils.getDescendants(mock, 1).map((item: any) => item.customId)).toEqual([3, 4, 6]);
     expect(treeUtils.getDescendants(mock, 2).map((item: any) => item.customId)).toEqual([5]);
     expect(treeUtils.getDescendants(mock, 5).map((item: any) => item.customId)).toEqual([]);
   });
 
   it('should not get descendants of nonexisting node', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     expect(treeUtils.getDescendants(mock, 666).map((item: any) => item.customId)).toEqual([]);
   });
 
   it('should find ALL nodes that match callback', () => {
-    const mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
     expect(treeUtils.findAll(mock, item => item.customId % 2 === 0).map((item: any) => item.customId)).toEqual([2, 4, 6]);
     expect(treeUtils.findAll(mock, item => item.customId % 3 === 0).map((item: any) => item.customId)).toEqual([3, 6]);
     expect(treeUtils.findAll(mock, item => item.name.includes('Node')).map((item: any) => item.customId)).toEqual([1, 2, 3, 4, 6, 5]);
+  });
+
+  it('should get neighbours of node', () => {
+    expect(treeUtils.getNeighbours(mock, 1).map((item: any) => item.customId)).toEqual([3, 4]);
+    expect(treeUtils.getNeighbours(mock, 3).map((item: any) => item.customId)).toEqual([1, 6]);
+    expect(treeUtils.getNeighbours(mock, 5).map((item: any) => item.customId)).toEqual([2]);
+  });
+
+  it('should get siblings of node', () => {
+    expect(treeUtils.getSiblings(mock, 1).map((item: any) => item.customId)).toEqual([]);
+    expect(treeUtils.getSiblings(mock, 3).map((item: any) => item.customId)).toEqual([4]);
+    expect(treeUtils.getSiblings(mock, 5).map((item: any) => item.customId)).toEqual([]);
   });
 });
