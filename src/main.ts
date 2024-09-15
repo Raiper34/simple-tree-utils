@@ -263,11 +263,21 @@ export class TreeUtils {
 
   /**
    * Method to get siblings of given node in tree structure
-   * @param tree
-   * @param id
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
    */
   getSiblings(tree: any[], id: any): any {
     return (this.getParent(tree, id)?.[this.childrenProp] || []).filter((item: any) => item[this.idProp] !== id);
+  }
+
+  /**
+   * Method to get leafs of subtree from given node
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   */
+  getLeafs(tree: any[], id: any): any {
+    const subTree = this.findById(tree, id)?.[this.childrenProp] || [];
+    return this.findAll(subTree, item => !item[this.childrenProp].length);
   }
 
   /**

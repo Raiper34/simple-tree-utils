@@ -196,4 +196,15 @@ describe('Tree utils methods', () => {
     expect(treeUtils.getSiblings(mock, 3).map((item: any) => item.customId)).toEqual([4]);
     expect(treeUtils.getSiblings(mock, 5).map((item: any) => item.customId)).toEqual([]);
   });
+
+  it('should get leafs in subtree from node', () => {
+    expect(treeUtils.getLeafs(mock, 1).map((item: any) => item.customId)).toEqual([4, 6]);
+    expect(treeUtils.getLeafs(mock, 2).map((item: any) => item.customId)).toEqual([5]);
+    expect(treeUtils.getLeafs(mock, 3).map((item: any) => item.customId)).toEqual([6]);
+    expect(treeUtils.getLeafs(mock, 6).map((item: any) => item.customId)).toEqual([]);
+  });
+
+  it('shold NOT get leafs for nonexisting node', () => {
+    expect(treeUtils.getLeafs(mock, 30).map((item: any) => item.customId)).toEqual([]);
+  })
 });
