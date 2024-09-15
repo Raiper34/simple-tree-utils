@@ -95,8 +95,8 @@ export class TreeUtils {
    * @param id - identifier of node
    * @returns found node
    */
-  findTreeNodeById(tree: any[], id: any): any {
-    return this.findTreeNode(tree, item => item[this.idProp] === id);
+  findById(tree: any[], id: any): any {
+    return this.find(tree, item => item[this.idProp] === id);
   }
 
   /**
@@ -109,13 +109,13 @@ export class TreeUtils {
    * utils.findTreeNode(tree, item => item.id === myId);
    * ```
    */
-  findTreeNode(tree: any[], fn: (item: any) => boolean): any {
+  find(tree: any[], fn: (item: any) => boolean): any {
     const node = tree.find(item => fn(item));
     if (node) {
       return node;
     }
     return tree.reduce((acc, curr) =>
-        acc || this.findTreeNode(curr[this.childrenProp] || [], fn), null
+        acc || this.find(curr[this.childrenProp] || [], fn), null
     );
   }
 
@@ -129,10 +129,10 @@ export class TreeUtils {
    * utils.findAllTreeNodes(tree, item => item.id === myId);
    * ```
    */
-  findAllTreeNodes(tree: any[], fn: (item: any) => boolean): any {
+  findAll(tree: any[], fn: (item: any) => boolean): any {
     const nodes = tree.filter(item => fn(item));
     return tree.reduce((acc, curr) => (
-        [...acc, ...(curr[this.childrenProp].length ? this.findAllTreeNodes(curr[this.childrenProp], fn) : [])]
+        [...acc, ...(curr[this.childrenProp].length ? this.findAll(curr[this.childrenProp], fn) : [])]
     ), nodes);
   }
 
@@ -141,12 +141,12 @@ export class TreeUtils {
    * @param tree - tree structure for node deleting
    * @param id - identifier of node to delete
    */
-  deleteNode(tree: any[], id: any): any {
+  delete(tree: any[], id: any): any {
     const index = tree.findIndex(item => item[this.idProp] == id);
     if (index != -1) {
       return tree.splice(index, 1)[0];
     }
-    return tree.reduce((acc, curr) => acc || this.deleteNode(curr[this.childrenProp], id), null);
+    return tree.reduce((acc, curr) => acc || this.delete(curr[this.childrenProp], id), null);
   }
 
   /**
@@ -155,7 +155,7 @@ export class TreeUtils {
    * @param parentId - identifier of parent node, null if new node should be on root level
    * @param childData - data of new node
    */
-  addNode(tree: any[], parentId: any, childData: any): void {
+  add(tree: any[], parentId: any, childData: any): void {
     if (parentId == null) {
       tree.push(childData);
       return;
@@ -165,7 +165,7 @@ export class TreeUtils {
       tree[index][this.childrenProp].push({[this.childrenProp]: [], ...childData});
       return;
     }
-    tree.forEach(item => this.addNode(item[this.childrenProp], parentId, childData));
+    tree.forEach(item => this.add(item[this.childrenProp], parentId, childData));
   }
 
   /**
@@ -174,72 +174,72 @@ export class TreeUtils {
    * @param id - identifier of node to be updated
    * @param data - new data of node (you should also pass children if you want to keep it)
    */
-  editNode(tree: any[], id: any, data: any): void {
+  edit(tree: any[], id: any, data: any): void {
     const index = tree.findIndex(item => item[this.idProp] == id);
     if (index != -1) {
       tree[index] = {[this.idProp]: tree[index][this.idProp], [this.childrenProp]: [], ...data};
       return;
     }
-    tree.forEach(item => this.editNode(item[this.childrenProp], id, data));
+    tree.forEach(item => this.edit(item[this.childrenProp], id, data));
   }
 
   /**
-   * Method to find all children nodes of given node in tree structure
+   * Method to get descendant nodes of given node in tree structure
    * @param tree - tree structure to search in
    * @param id - identifier of node
    * @returns all found children nodes
    */
-  findAllChildrenNodes(tree: any[], id: any): any[] {
-    const node = this.findTreeNodeById(tree, id);
+  getDescendants(tree: any[], id: any): any[] {
+    const node = this.findById(tree, id);
     return node ? [
       ...node[this.childrenProp],
-      ...node[this.childrenProp].reduce((acc: any, curr: any) => ([...acc, ...this.getChildrenNodes(curr)]), [])
+      ...node[this.childrenProp].reduce((acc: any, curr: any) => ([...acc, ...this.getDescendantNodes(curr)]), [])
     ] : [];
   }
 
   /**
-   * Helper method to recursively get all children nodes of given node in tree structure
+   * Helper method to recursively get all descendant nodes of given node in tree structure
    * @param node - we want to get all of its children
    * @returns all found children nodes
    * @private
    */
-  private getChildrenNodes(node: any): any[] {
+  private getDescendantNodes(node: any): any[] {
     return [
       ...node[this.childrenProp],
-      ...node[this.childrenProp].reduce((acc: any, curr: any) => ([...acc, ...this.getChildrenNodes(curr)]), [])
+      ...node[this.childrenProp].reduce((acc: any, curr: any) => ([...acc, ...this.getDescendantNodes(curr)]), [])
     ];
   }
 
   /**
-   * Method to find all parents of given node in tree structure
+   * Method to get ancestors of given node in tree structure
    * @param tree - tree structure to search in
    * @param id - identifier of node
    * @returns all found parent nodes
    */
-  findAllParentNodes(tree: any[], id: any): any[] {
+  getAncestors(tree: any[], id: any): any[] {
     const parents = [];
-    let parent = this.findNodeParent(tree, id);
+    let parent = this.getParent(tree, id);
     while (parent) {
       parents.push(parent);
-      parent = this.findNodeParent(tree, parent[this.idProp]);
+      parent = this.getParent(tree, parent[this.idProp]);
     }
     return parents.reverse();
   }
 
   /**
-   * Method to find parent of given node in tree structure
+   * Method to get parent of given node in tree structure
    * @param tree - tree structure to search in
    * @param id - identifier of node
    * @param parent - parent node, if we found something (for recursion only)
    * @returns found parent node
    */
-  findNodeParent(tree: any[], id: any, parent: any = null): any {
+  getParent(tree: any[], id: any, parent: any = null): any {
     const node = tree.find(item => item[this.idProp] === id);
     if (node) {
       return parent;
     }
     return tree.reduce((acc, curr) =>
-        acc || this.findNodeParent(curr[this.childrenProp] || [], id, curr), null
+        acc || this.getParent(curr[this.childrenProp] || [], id, curr), null
     );
   }
 

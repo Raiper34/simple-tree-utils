@@ -23,7 +23,7 @@
     "lint:fix": "npx eslint ./src --fix",
     "docs": "npx typedoc src/main.ts",
     "deploy": "npm run docs && netlify deploy --dir=docs --prod",
-    "release": "npm run build && npm publish"
+    "release": "npm run build && npm publish && npm run deploy"
   },
   "author": "Raiper34",
   "license": "MIT",

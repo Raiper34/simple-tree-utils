@@ -75,19 +75,7 @@ const tree = [
   },
 ];
 ```
-When you got a structure like the above, you can use all the following methods:
-
-| **Name** | Desription | Signature |
-| ---- | ---------- | --------- |
-| **addNode** | Method to add new node to tree (mutable operation!) | `addNode(tree: any[], parentId: any, childData: any): void` |
-| **deleteNode** | Method to delete node in tree by given id (mutable operation!) | `deleteNode(tree: any[], id: any): any` |
-| **editNode** | Method to update node by id with given data in tree (mutable operation!) | `editNode(tree: any[], id: any, data: any): void` |
-| **findAllChildrenNodes** | Method to find all children nodes of given node in tree structure | `findAllChildrenNodes(tree: any[], id: any): any[]` |
-| **findAllParentNodes** | Method to find all parents of given node in tree structure | `findAllParentNodes(tree: any[], id: any): any[]` |
-| **findAllTreeNodes** | Method to find all nodes in tree structure by given callback function | `findAllTreeNodes(tree: any[], fn: ((item: any) => boolean)): any` |
-| **findNodeParent** | Method to find parent of given node in tree structure | `findNodeParent(tree: any[], id: any, parent?: any): any` |
-| **findTreeNode** | Method to find node in tree structure by given callback function | `findTreeNode(tree: any[], fn: ((item: any) => boolean)): any` |
-| **findTreeNodeById** | Method to find node in tree structure by given id | `findTreeNodeById(tree: any[], id: any): any` |
+When you got a structure like the above, you can use all the methods stated here: https://simple-tree-utils.netlify.app/classes/treeutils
 
 For example, we can find node by giving callback
 ```ts
