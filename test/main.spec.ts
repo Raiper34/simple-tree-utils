@@ -204,7 +204,38 @@ describe('Tree utils methods', () => {
     expect(treeUtils.getLeafs(mock, 6).map((item: any) => item.customId)).toEqual([]);
   });
 
-  it('shold NOT get leafs for nonexisting node', () => {
+  it('should NOT get leafs for nonexisting node', () => {
     expect(treeUtils.getLeafs(mock, 30).map((item: any) => item.customId)).toEqual([]);
-  })
+  });
+
+  it('should get size of tree', () => {
+    expect(treeUtils.getSize(mock, 1)).toBe(4);
+    expect(treeUtils.getSize(mock, 2)).toBe(2);
+    expect(treeUtils.getSize(mock, 3)).toBe(2);
+  });
+
+  it('should get size of tree', () => {
+    expect(treeUtils.getBreath(mock, 1)).toBe(2);
+    expect(treeUtils.getBreath(mock, 2)).toBe(1);
+    expect(treeUtils.getBreath(mock, 3)).toBe(1);
+    expect(treeUtils.getBreath(mock, 6)).toBe(0);
+  });
+
+  it('should get depth of tree', () => {
+    expect(treeUtils.getDepth(mock, 1)).toBe(0);
+    expect(treeUtils.getDepth(mock, 4)).toBe(1);
+    expect(treeUtils.getDepth(mock, 6)).toBe(2);
+  });
+
+  it('should get level of tree', () => {
+    expect(treeUtils.getLevel(mock, 1)).toBe(1);
+    expect(treeUtils.getLevel(mock, 4)).toBe(2);
+    expect(treeUtils.getLevel(mock, 6)).toBe(3);
+  });
+
+  it('should get degree of tree', () => {
+    expect(treeUtils.getDegree(mock, 1)).toBe(2);
+    expect(treeUtils.getDegree(mock, 3)).toBe(1);
+    expect(treeUtils.getDegree(mock, 6)).toBe(0);
+  });
 });

@@ -191,10 +191,7 @@ export class TreeUtils {
    */
   getDescendants(tree: any[], id: any): any[] {
     const node = this.findById(tree, id);
-    return node ? [
-      ...node[this.childrenProp],
-      ...node[this.childrenProp].reduce((acc: any, curr: any) => ([...acc, ...this.getDescendantNodes(curr)]), [])
-    ] : [];
+    return node ? this.getDescendantNodes(node): [];
   }
 
   /**
@@ -276,8 +273,31 @@ export class TreeUtils {
    * @param id - identifier of node
    */
   getLeafs(tree: any[], id: any): any {
-    const subTree = this.findById(tree, id)?.[this.childrenProp] || [];
-    return this.findAll(subTree, item => !item[this.childrenProp].length);
+    return this.findAll(this.getSubTree(tree, id), item => !item[this.childrenProp].length);
+  }
+
+  getSubTree(tree: any[], id: any): any[] {
+    return this.findById(tree, id)?.[this.childrenProp] || [];
+  }
+
+  getSize(tree: any[], id: any): number {
+    return this.tree2List(this.getSubTree(tree, id)).length + 1;
+  }
+
+  getBreath(tree: any[], id: any): number {
+    return this.getLeafs(tree, id).length;
+  }
+
+  getDepth(tree: any[], id: any): number {
+    return this.getAncestors(tree, id).length;
+  }
+
+  getLevel(tree: any[], id: any): number {
+    return this.getDepth(tree, id) + 1;
+  }
+
+  getDegree(tree: any[], id: any): number {
+    return this.getChildren(tree, id).length;
   }
 
   /**
