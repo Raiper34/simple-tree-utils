@@ -5,6 +5,8 @@
 [![CircleCI](https://circleci.com/gh/Raiper34/simple-tree-utils.svg?style=shield)](https://circleci.com/gh/Raiper34/simple-tree-utils)
 [![Coverage Status](https://coveralls.io/repos/github/Raiper34/simple-tree-utils/badge.svg?branch=main)](https://coveralls.io/github/Raiper34/simple-tree-utils?branch=main)
 [![npm](https://img.shields.io/npm/dt/simple-tree-utils)](https://badge.fury.io/js/simple-tree-utils)
+[![npm](https://img.shields.io/npm/dm/simple-tree-utils)](https://badge.fury.io/js/simple-tree-utils)
+[![npm](https://img.shields.io/npm/dw/simple-tree-utils)](https://badge.fury.io/js/simple-tree-utils)
 [![](https://data.jsdelivr.com/v1/package/npm/simple-tree-utils/badge?style=rounded)](https://www.jsdelivr.com/package/npm/simple-tree-utils)
 [![GitHub Repo stars](https://img.shields.io/github/stars/raiper34/simple-tree-utils)](https://github.com/Raiper34/simple-tree-utils)
 
