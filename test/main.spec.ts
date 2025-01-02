@@ -291,4 +291,11 @@ describe('Tree utils methods', () => {
     expect(treeUtils.getDistance(mock, 2, 5)).toBe(1);
     expect(treeUtils.getDistance(mock, 1, 1)).toBe(0);
   });
+
+  it('should get path nodes of node', () => {
+    expect(treeUtils.getPathNodes(mock, 6).map((item: any) => item.customId)).toEqual([1, 3]);
+    expect(treeUtils.getPathNodes(mock, 4).map((item: any) => item.customId)).toEqual([1]);
+    expect(treeUtils.getPathNodes(mock, 5).map((item: any) => item.customId)).toEqual([2]);
+    expect(treeUtils.getPathNodes(mock, 1).map((item: any) => item.customId)).toEqual([]);
+  });
 });

@@ -223,6 +223,10 @@ export class TreeUtils {
     return parents.reverse();
   }
 
+  getPathNodes(tree: any[], id: any): any[] {
+    return this.getAncestors(tree, id);
+  }
+
   /**
    * Method to get parent of given node in tree structure
    * @param tree - tree structure to search in
@@ -326,8 +330,8 @@ export class TreeUtils {
   }
 
   getDistance(tree: any[], id1: any, id2: any): number {
-    const ancestors1 = [...this.getAncestors(tree, id1), this.findById(tree, id1)];
-    const ancestors2 = [...this.getAncestors(tree, id2), this.findById(tree, id2)];
+    const ancestors1 = [...this.getPathNodes(tree, id1), this.findById(tree, id1)];
+    const ancestors2 = [...this.getPathNodes(tree, id2), this.findById(tree, id2)];
     const common = [...ancestors1].reverse().find(element => ancestors2.includes(element));
     if (!common) {
       return -1;
