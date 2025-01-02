@@ -28,6 +28,26 @@ const TREE_MOCK_ITEMS = [
   },
 ];
 
+const TREE_MOCK_ITEMS2 = [
+  {
+    customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
+      {
+        customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: [
+          {customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []},
+        ]
+      },
+      {customId: 4, parentCustomId: 1, name: 'Node 4', customChildren: []},
+    ]
+  },
+  {
+    customId: 2, parentCustomId: null, name: 'Node 2', customChildren: [
+      {customId: 5, parentCustomId: 2, name: 'Node 5', customChildren: []},
+      {customId: 6, parentCustomId: 2, name: 'Node 6', customChildren: []},
+      {customId: 7, parentCustomId: 2, name: 'Node 7', customChildren: []},
+    ]
+  },
+];
+
 const treeUtils = new TreeUtils({
   idProp: 'customId',
   parentIdProp: 'parentCustomId',
@@ -237,5 +257,30 @@ describe('Tree utils methods', () => {
     expect(treeUtils.getDegree(mock, 1)).toBe(2);
     expect(treeUtils.getDegree(mock, 3)).toBe(1);
     expect(treeUtils.getDegree(mock, 6)).toBe(0);
+  });
+
+  it('should get tree degree of tree', () => {
+    expect(treeUtils.getTreeDegree(TREE_MOCK_ITEMS2)).toBe(3);
+  });
+
+  it('should get nodes at specific level', () => {
+    expect(treeUtils.getNodesAtLevel(mock, 0).map((item: any) => item.customId)).toEqual([1, 2]);
+    expect(treeUtils.getNodesAtLevel(mock, 1).map((item: any) => item.customId)).toEqual([3, 4, 5]);
+    expect(treeUtils.getNodesAtLevel(mock, 2).map((item: any) => item.customId)).toEqual([6]);
+  });
+
+  it('should get width at specific level', () => {
+    expect(treeUtils.getWidth(mock, 0)).toBe(2);
+    expect(treeUtils.getWidth(mock, 1)).toBe(3);
+    expect(treeUtils.getWidth(mock, 2)).toBe(1);
+  });
+
+  it('should get height of node', () => {
+    expect(treeUtils.getHeight(mock, 1)).toBe(2);
+    expect(treeUtils.getHeight(mock, 2)).toBe(1);
+    expect(treeUtils.getHeight(mock, 3)).toBe(1);
+    expect(treeUtils.getHeight(mock, 4)).toBe(0);
+    expect(treeUtils.getHeight(mock, 5)).toBe(0);
+    expect(treeUtils.getHeight(mock, 6)).toBe(0);
   });
 });

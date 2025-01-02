@@ -300,6 +300,31 @@ export class TreeUtils {
     return this.getChildren(tree, id).length;
   }
 
+  getTreeDegree(tree: any[]): number {
+    return tree.reduce((acc, curr) => Math.max(acc, curr[this.childrenProp].length, this.getTreeDegree(curr[this.childrenProp])), 0);
+  }
+
+  getNodesAtLevel(tree: any[], level: number, actualLevel = 0): any[] {
+    return tree.reduce((acc, curr) => [
+        ...acc,
+        ...(level === actualLevel ? [curr] : []),
+        ...(actualLevel < level ? this.getNodesAtLevel(curr[this.childrenProp], level, actualLevel + 1) : []),
+    ],[]);
+  }
+
+  getWidth(tree: any[], level: number): number {
+    return this.getNodesAtLevel(tree, level).length;
+  }
+
+  getHeight(tree: any[], id: any): number {
+    const node = this.findById(tree, id);
+    return this.getHeightNode(node[this.childrenProp]);
+  }
+
+  getHeightNode(tree: any[], height: number = 0): number {
+    return tree.reduce((acc, curr) => Math.max(acc, this.getHeightNode(curr[this.childrenProp], height + 1)), height);
+  }
+
   /**
    * Helper method to deep clone object
    * @param obj - object to be cloned
