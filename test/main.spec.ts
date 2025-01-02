@@ -283,4 +283,12 @@ describe('Tree utils methods', () => {
     expect(treeUtils.getHeight(mock, 5)).toBe(0);
     expect(treeUtils.getHeight(mock, 6)).toBe(0);
   });
+
+  it('should get distance between 2 nodes', () => {
+    expect(treeUtils.getDistance(mock, 1, 2)).toBe(-1);
+    expect(treeUtils.getDistance(mock, 3, 4)).toBe(2);
+    expect(treeUtils.getDistance(mock, 4, 6)).toBe(3);
+    expect(treeUtils.getDistance(mock, 2, 5)).toBe(1);
+    expect(treeUtils.getDistance(mock, 1, 1)).toBe(0);
+  });
 });

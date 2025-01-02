@@ -325,6 +325,18 @@ export class TreeUtils {
     return tree.reduce((acc, curr) => Math.max(acc, this.getHeightNode(curr[this.childrenProp], height + 1)), height);
   }
 
+  getDistance(tree: any[], id1: any, id2: any): number {
+    const ancestors1 = [...this.getAncestors(tree, id1), this.findById(tree, id1)];
+    const ancestors2 = [...this.getAncestors(tree, id2), this.findById(tree, id2)];
+    const common = [...ancestors1].reverse().find(element => ancestors2.includes(element));
+    if (!common) {
+      return -1;
+    }
+    const commonIndex1 = ancestors1.findIndex(item => item.id === common.id);
+    const commonIndex2 = ancestors2.findIndex(item => item.id === common.id);
+    return (ancestors1.length - commonIndex1 - 1) + (ancestors2.length - commonIndex2 - 1);
+  }
+
   /**
    * Helper method to deep clone object
    * @param obj - object to be cloned
