@@ -21,7 +21,7 @@
     "test:ci": "npm run test && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint ./src",
     "lint:fix": "npm run lint -- --fix",
-    "docs": "typedoc src/main.ts",
+    "docs": "typedoc src/simple-tree-utils.ts",
     "deploy": "npm run docs && netlify deploy --dir=docs --prod",
     "release": "release-it",
     "changelog": "auto-changelog -p",

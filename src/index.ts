@@ -1,1 +1,1 @@
-export {IConfig, TreeUtils} from './main';
+export {IConfig, TreeUtils} from './simple-tree-utils';
