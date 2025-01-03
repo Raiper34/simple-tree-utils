@@ -76,15 +76,15 @@ describe('Tree utils methods', () => {
     expect(treeUtils.tree2List(TREE_MOCK_ITEMS).sort((a: any, b: any) => a.customId - b.customId)).toEqual(LIST_MOCK_ITEMS);
   });
 
-  it('should find node by given customId', () => {
-    expect(treeUtils.findById(TREE_MOCK_ITEMS, 6)).toEqual({customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []});
+  it('should get node by given customId', () => {
+    expect(treeUtils.get(TREE_MOCK_ITEMS, 6)).toEqual({customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []});
   });
 
   it('should not fail, when children prop is missing', () => {
     const input = [
       {customId: 1, parentCustomId: null, name: 'Node 1'}
     ]
-    expect(treeUtils.findById(input, 6)).toBeNull();
+    expect(treeUtils.get(input, 6)).toBeNull();
     expect(treeUtils.getParent(input, 6)).toBeNull();
   });
 
@@ -200,9 +200,9 @@ describe('Tree utils methods', () => {
   });
 
   it('should find ALL nodes that match callback', () => {
-    expect(treeUtils.findAll(mock, item => item.customId % 2 === 0).map((item: any) => item.customId)).toEqual([2, 4, 6]);
-    expect(treeUtils.findAll(mock, item => item.customId % 3 === 0).map((item: any) => item.customId)).toEqual([3, 6]);
-    expect(treeUtils.findAll(mock, item => item.name.includes('Node')).map((item: any) => item.customId)).toEqual([1, 2, 3, 4, 6, 5]);
+    expect(treeUtils.filter(mock, item => item.customId % 2 === 0).map((item: any) => item.customId)).toEqual([2, 4, 6]);
+    expect(treeUtils.filter(mock, item => item.customId % 3 === 0).map((item: any) => item.customId)).toEqual([3, 6]);
+    expect(treeUtils.filter(mock, item => item.name.includes('Node')).map((item: any) => item.customId)).toEqual([1, 2, 3, 4, 6, 5]);
   });
 
   it('should get neighbours of node', () => {

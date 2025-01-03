@@ -61,41 +61,63 @@ export class TreeUtils {
 
   /**
    * Convert list to tree like structure
-   * @param list list of objects, objects need to have id (as you configured, or 'id' by default) and parentId property (as you configured, or 'parentId' by default)
-   * @param parentId id of parent node
+   * @param list - list of objects, objects need to have id (as you configured, or 'id' by default) and parentId property (as you configured, or 'parentId' by default)
+   * @returns tree structure
    */
-  list2Tree(list: any[], parentId: any = null): any[] {
-    return TreeUtils.deepCopy(list)
+  list2Tree(list: any[]): any[] {
+    return this._list2Tree(TreeUtils.deepCopy(list));
+  }
+
+  /**
+   * Convert list to tree like structure recursively (helper method)
+   * @param list list of objects, objects need to have id (as you configured, or 'id' by default) and parentId property (as you configured, or 'parentId' by default)
+   * @param parentId - id of parent node
+   * @private
+   * @returns tree structure
+   */
+  private _list2Tree(list: any[], parentId: any = null): any[] {
+    return list
         .filter((item: any) => item[this.parentIdProp] === parentId)
         .map((item: any) => ({
           ...item,
-          [this.childrenProp]: this.list2Tree(list, item[this.idProp])
+          [this.childrenProp]: this._list2Tree(list, item[this.idProp])
         }));
   }
 
   /**
    * Convert tree like structure to list
-   * @param tree tree of objects, objects need to have children (as you configured, or 'children' by default) and parentId property (as you configured, or 'parentId' by default)
-   * @param parentId
+   * @param tree - tree of objects, objects need to have children (as you configured, or 'children' by default) and parentId property (as you configured, or 'parentId' by default)
+   * @returns list
    */
-  tree2List(tree: any[], parentId: any = null): any[] {
+  tree2List(tree: any[]): any[] {
+    return this._tree2List(TreeUtils.deepCopy(tree));
+  }
+
+  /**
+   * Convert tree like structure to list (helper method)
+   * @param tree tree of objects, objects need to have children (as you configured, or 'children' by default) and parentId property (as you configured, or 'parentId' by default)
+   * @param parentId - id of parent node
+   * @private
+   * @returns list
+   */
+  private _tree2List(tree: any[], parentId: any = null): any[] {
     return TreeUtils.deepCopy(tree).reduce((acc: any, curr: any) => {
       const {[this.childrenProp]: children, ...rest} = curr;
       return [
         ...acc,
         {...rest, [this.parentIdProp]: parentId},
-        ...(children.length ? this.tree2List(children, rest[this.idProp]) : [])
+        ...(children.length ? this._tree2List(children, rest[this.idProp]) : [])
       ];
     }, [])
   }
 
   /**
-   * Method to find node in tree structure by given id
+   * Method to get node in tree structure by given id
    * @param tree - tree structure to search in
    * @param id - identifier of node
    * @returns found node
    */
-  findById(tree: any[], id: any): any {
+  get(tree: any[], id: any): any {
     return this.find(tree, item => item[this.idProp] === id);
   }
 
@@ -106,7 +128,7 @@ export class TreeUtils {
    * @returns found node
    * @example
    * ```ts
-   * utils.findTreeNode(tree, item => item.id === myId);
+   * utils.find(tree, item => item.id === myId);
    * ```
    */
   find(tree: any[], fn: (item: any) => boolean): any {
@@ -126,13 +148,13 @@ export class TreeUtils {
    * @returns all found nodes
    * @example
    * ```ts
-   * utils.findAllTreeNodes(tree, item => item.id === myId);
+   * utils.filter(tree, item => item.id === myId);
    * ```
    */
-  findAll(tree: any[], fn: (item: any) => boolean): any {
+  filter(tree: any[], fn: (item: any) => boolean): any {
     const nodes = tree.filter(item => fn(item));
     return tree.reduce((acc, curr) => (
-        [...acc, ...(curr[this.childrenProp].length ? this.findAll(curr[this.childrenProp], fn) : [])]
+        [...acc, ...(curr[this.childrenProp].length ? this.filter(curr[this.childrenProp], fn) : [])]
     ), nodes);
   }
 
@@ -190,20 +212,20 @@ export class TreeUtils {
    * @returns all found children nodes
    */
   getDescendants(tree: any[], id: any): any[] {
-    const node = this.findById(tree, id);
-    return node ? this.getDescendantNodes(node): [];
+    const node = this.get(tree, id);
+    return node ? this._getDescendants(node): [];
   }
 
   /**
    * Helper method to recursively get all descendant nodes of given node in tree structure
    * @param node - we want to get all of its children
-   * @returns all found children nodes
    * @private
+   * @returns all found children nodes
    */
-  private getDescendantNodes(node: any): any[] {
+  private _getDescendants(node: any): any[] {
     return [
       ...node[this.childrenProp],
-      ...node[this.childrenProp].reduce((acc: any, curr: any) => ([...acc, ...this.getDescendantNodes(curr)]), [])
+      ...node[this.childrenProp].reduce((acc: any, curr: any) => ([...acc, ...this._getDescendants(curr)]), [])
     ];
   }
 
@@ -238,16 +260,26 @@ export class TreeUtils {
    * Method to get parent of given node in tree structure
    * @param tree - tree structure to search in
    * @param id - identifier of node
-   * @param parent - parent node, if we found something (for recursion only)
-   * @returns found parent node
+   * @returns found parent node, otherwise null
    */
-  getParent(tree: any[], id: any, parent: any = null): any {
+  getParent(tree: any[], id: any): any {
+    return this._getParent(tree, id);
+  }
+
+  /**
+   * Method to get parent of given node in tree structure
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   * @param parent - parent node, if we found something (for recursion only)
+   * @returns found parent node, otherwise null
+   */
+  private _getParent(tree: any[], id: any, parent: any = null): any {
     const node = tree.find(item => item[this.idProp] === id);
     if (node) {
       return parent;
     }
     return tree.reduce((acc, curr) =>
-        acc || this.getParent(curr[this.childrenProp] || [], id, curr), null
+        acc || this._getParent(curr[this.childrenProp] || [], id, curr), null
     );
   }
 
@@ -255,15 +287,17 @@ export class TreeUtils {
    * Method to get children of given node in tree structure
    * @param tree - tree structure to search in
    * @param id - identifier of node
+   * @returns children nodes of node
    */
   getChildren(tree: any[], id: any): any[] {
-    return this.findById(tree, id)?.[this.childrenProp] || [];
+    return this.get(tree, id)?.[this.childrenProp] || [];
   }
 
   /**
    * Method to get neighbours (neighbour is parent or child) of given node in tree structure
    * @param tree - tree structure to search in
    * @param id - identifier of node
+   * @returns neighbours of node
    */
   getNeighbours(tree: any[], id: any): any {
     return [this.getParent(tree, id), ...this.getChildren(tree, id)].filter(item => item);
@@ -273,6 +307,7 @@ export class TreeUtils {
    * Method to get siblings of given node in tree structure
    * @param tree - tree structure to search in
    * @param id - identifier of node
+   * @returns siblings of node
    */
   getSiblings(tree: any[], id: any): any {
     return (this.getParent(tree, id)?.[this.childrenProp] || []).filter((item: any) => item[this.idProp] !== id);
@@ -282,9 +317,10 @@ export class TreeUtils {
    * Method to get leafs of subtree from given node
    * @param tree - tree structure to search in
    * @param id - identifier of node
+   * @returns leafs of nodes
    */
   getLeafs(tree: any[], id: any): any {
-    return this.findAll(this.getSubTree(tree, id), item => !item[this.childrenProp].length);
+    return this.filter(this.getSubTree(tree, id), item => !item[this.childrenProp].length);
   }
 
   /**
@@ -361,14 +397,25 @@ export class TreeUtils {
    * Method to get nodes in tree at specific level
    * @param tree - tree structure to search in
    * @param level - desired level
-   * @param actualLevel - actual level, that is searched
    * @returns all nodes, that are on specific level
    */
-  getNodesAtLevel(tree: any[], level: number, actualLevel = 0): any[] {
+  getNodesAtLevel(tree: any[], level: number): any[] {
+    return this._getNodesAtLevel(tree, level);
+  }
+
+  /**
+   * Helper method to get nodes in tree at specific level recursively
+   * @param tree - tree structure to search in
+   * @param level - desired level
+   * @param actualLevel - actual level, that is searched
+   * @private
+   * @returns all nodes, that are on specific level
+   */
+  private _getNodesAtLevel(tree: any[], level: number, actualLevel = 0): any[] {
     return tree.reduce((acc, curr) => [
-        ...acc,
-        ...(level === actualLevel ? [curr] : []),
-        ...(actualLevel < level ? this.getNodesAtLevel(curr[this.childrenProp], level, actualLevel + 1) : []),
+      ...acc,
+      ...(level === actualLevel ? [curr] : []),
+      ...(actualLevel < level ? this._getNodesAtLevel(curr[this.childrenProp], level, actualLevel + 1) : []),
     ],[]);
   }
 
@@ -407,12 +454,12 @@ export class TreeUtils {
    * Method to get distance between 2 nodes
    * @param tree - tree structure
    * @param id1 - identifier of first node
-   * @param id1 - identifier of second node
-   * @returns distance between 2 nodes
+   * @param id2 - identifier of second node
+   * @returns distance between 2 nodes, returns -1, if there is no connection between nodes
    */
   getDistance(tree: any[], id1: any, id2: any): number {
-    const ancestors1 = [...this.getPathNodes(tree, id1), this.findById(tree, id1)];
-    const ancestors2 = [...this.getPathNodes(tree, id2), this.findById(tree, id2)];
+    const ancestors1 = [...this.getPathNodes(tree, id1), this.get(tree, id1)];
+    const ancestors2 = [...this.getPathNodes(tree, id2), this.get(tree, id2)];
     const common = [...ancestors1].reverse().find(element => ancestors2.includes(element));
     if (!common) {
       return -1;
