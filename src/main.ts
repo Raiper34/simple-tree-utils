@@ -223,6 +223,13 @@ export class TreeUtils {
     return parents.reverse();
   }
 
+  /**
+   * Method to get nodes that are part of path from root
+   * Alias for {@link TreeUtils.getAncestors | getAncestors} method
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   * @returns all nodes that are part of path (ordered from root)
+   */
   getPathNodes(tree: any[], id: any): any[] {
     return this.getAncestors(tree, id);
   }
@@ -250,7 +257,7 @@ export class TreeUtils {
    * @param id - identifier of node
    */
   getChildren(tree: any[], id: any): any[] {
-    return this.findById(tree, id)[this.childrenProp];
+    return this.findById(tree, id)?.[this.childrenProp] || [];
   }
 
   /**
@@ -280,34 +287,83 @@ export class TreeUtils {
     return this.findAll(this.getSubTree(tree, id), item => !item[this.childrenProp].length);
   }
 
+  /**
+   * Method to get subtree from given node (children of node)
+   * Alias for {@link TreeUtils.getChildren | getChildren} method
+   * @param tree - tree structure to search in
+   * @param id - identifier of node
+   * @returns subtree
+   */
   getSubTree(tree: any[], id: any): any[] {
-    return this.findById(tree, id)?.[this.childrenProp] || [];
+    return this.getChildren(tree, id);
   }
 
+  /**
+   * Method to get size of subtree (number of nodes in the subtree)
+   * @param tree - tree structure
+   * @param id - identifier of node
+   * @returns size of subtree
+   */
   getSize(tree: any[], id: any): number {
     return this.tree2List(this.getSubTree(tree, id)).length + 1;
   }
 
+  /**
+   * Method to get breath of subtree (the number of leaves in subtree)
+   * @param tree - tree structure
+   * @param id - identifier of node
+   * @returns breath of subtree
+   */
   getBreath(tree: any[], id: any): number {
     return this.getLeafs(tree, id).length;
   }
 
+  /**
+   * Method to get depth of node (the depth of a node is the length of the path to its root i.e., its root path)
+   * @param tree - tree structure
+   * @param id - identifier of node
+   * @returns depth of node
+   */
   getDepth(tree: any[], id: any): number {
-    return this.getAncestors(tree, id).length;
+    return this.getPathNodes(tree, id).length;
   }
 
+  /**
+   * Method to get level of node (the level of a node is the number of edges along the unique path between it and the root node)
+   * @param tree - tree structure
+   * @param id - identifier of node
+   * @returns level of node
+   */
   getLevel(tree: any[], id: any): number {
     return this.getDepth(tree, id) + 1;
   }
 
+  /**
+   * Method to get degree of node (for a given node, its number of children. A leaf, by definition, has degree zero)
+   * @param tree - tree structure
+   * @param id - identifier of node
+   * @returns degree of node
+   */
   getDegree(tree: any[], id: any): number {
     return this.getChildren(tree, id).length;
   }
 
+  /**
+   * Method to get degree of tree (the degree of a tree is the maximum degree of a node in the tree)
+   * @param tree - tree structure
+   * @returns degree of tree
+   */
   getTreeDegree(tree: any[]): number {
     return tree.reduce((acc, curr) => Math.max(acc, curr[this.childrenProp].length, this.getTreeDegree(curr[this.childrenProp])), 0);
   }
 
+  /**
+   * Method to get nodes in tree at specific level
+   * @param tree - tree structure to search in
+   * @param level - desired level
+   * @param actualLevel - actual level, that is searched
+   * @returns all nodes, that are on specific level
+   */
   getNodesAtLevel(tree: any[], level: number, actualLevel = 0): any[] {
     return tree.reduce((acc, curr) => [
         ...acc,
@@ -316,19 +372,44 @@ export class TreeUtils {
     ],[]);
   }
 
+  /**
+   * Method to get width on level in tree (the number of nodes in a level)
+   * @param tree - tree structure
+   * @param level - desired level
+   * @returns width on desired level
+   */
   getWidth(tree: any[], level: number): number {
     return this.getNodesAtLevel(tree, level).length;
   }
 
+  /**
+   * Method to get height of node (the height of a node is the length of the longest downward path to a leaf from that node)
+   * @param tree - tree structure
+   * @param id - identifier of node
+   * @returns height of node
+   */
   getHeight(tree: any[], id: any): number {
-    const node = this.findById(tree, id);
-    return this.getHeightNode(node[this.childrenProp]);
+    return this.getHeightNode(this.getSubTree(tree, id));
   }
 
-  getHeightNode(tree: any[], height: number = 0): number {
+  /**
+   * Helper method to get height of node from children recursively
+   * @param tree - tree structure
+   * @param height - actual computed height
+   * @private
+   * @returns height of node
+   */
+  private getHeightNode(tree: any[], height: number = 0): number {
     return tree.reduce((acc, curr) => Math.max(acc, this.getHeightNode(curr[this.childrenProp], height + 1)), height);
   }
 
+  /**
+   * Method to get distance between 2 nodes
+   * @param tree - tree structure
+   * @param id1 - identifier of first node
+   * @param id1 - identifier of second node
+   * @returns distance between 2 nodes
+   */
   getDistance(tree: any[], id1: any, id2: any): number {
     const ancestors1 = [...this.getPathNodes(tree, id1), this.findById(tree, id1)];
     const ancestors2 = [...this.getPathNodes(tree, id2), this.findById(tree, id2)];
