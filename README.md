@@ -81,7 +81,7 @@ When you got a structure like the above, you can use all the methods stated here
 
 For example, we can find node by giving callback
 ```ts
-const node = treeUtils.findTreeNode(tree, item => item.id === 2);
+const node = treeUtils.find(tree, item => item.id === 2);
 ```
 If you need a list again, you can convert the tree back to a list using `treeUtils.tree2List` method
 ```ts
