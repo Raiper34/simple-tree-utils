@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [2.0.0](https://github.com/Raiper34/simple-tree-utils/compare/1.0.2...2.0.0)
+#### [2.1.0](https://github.com/Raiper34/simple-tree-utils/compare/2.0.0...2.1.0)
+
+- feat(list2tree): add ability to define custom tree roots [`#17`](https://github.com/Raiper34/simple-tree-utils/issues/17)
+- docs(changelog): add changelog to project [`2bc7738`](https://github.com/Raiper34/simple-tree-utils/commit/2bc7738a31bcad8617e80267e4c619385d26f885)
+
+### [2.0.0](https://github.com/Raiper34/simple-tree-utils/compare/1.0.2...2.0.0)
+
+> 3 January 2025
 
 - feat(method): getPathNodes presented [`#15`](https://github.com/Raiper34/simple-tree-utils/issues/15)
 - feat(methods): getDistance presented [`#8`](https://github.com/Raiper34/simple-tree-utils/issues/8)
