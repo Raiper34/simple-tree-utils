@@ -61,26 +61,16 @@ export class TreeUtils {
 
   /**
    * Convert list to tree like structure
-   * @param list - list of objects, objects need to have id (as you configured, or 'id' by default) and parentId property (as you configured, or 'parentId' by default)
-   * @returns tree structure
-   */
-  list2Tree(list: any[]): any[] {
-    return this._list2Tree(TreeUtils.deepCopy(list));
-  }
-
-  /**
-   * Convert list to tree like structure recursively (helper method)
    * @param list list of objects, objects need to have id (as you configured, or 'id' by default) and parentId property (as you configured, or 'parentId' by default)
-   * @param parentId - id of parent node
-   * @private
+   * @param rootParentId - id of root parent nodes (if not specified, root nodes are nodes with parentId of null)
    * @returns tree structure
    */
-  private _list2Tree(list: any[], parentId: any = null): any[] {
+  list2Tree(list: any[], rootParentId: any = null): any[] {
     return list
-        .filter((item: any) => item[this.parentIdProp] === parentId)
+        .filter((item: any) => item[this.parentIdProp] === rootParentId)
         .map((item: any) => ({
           ...item,
-          [this.childrenProp]: this._list2Tree(list, item[this.idProp])
+          [this.childrenProp]: this.list2Tree(list, item[this.idProp])
         }));
   }
 

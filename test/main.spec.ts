@@ -1,32 +1,35 @@
 import {TreeUtils} from "../src";
 
+function getMockedList(parentCustomId: any = null): any[] {
+  return [
+    {customId: 1, parentCustomId, name: 'Node 1'},
+    {customId: 2, parentCustomId, name: 'Node 2'},
+    {customId: 3, parentCustomId: 1, name: 'Node 3'},
+    {customId: 4, parentCustomId: 1, name: 'Node 4'},
+    {customId: 5, parentCustomId: 2, name: 'Node 5'},
+    {customId: 6, parentCustomId: 3, name: 'Node 6'},
+  ]
+}
 
-const LIST_MOCK_ITEMS = [
-  {customId: 1, parentCustomId: null, name: 'Node 1'},
-  {customId: 2, parentCustomId: null, name: 'Node 2'},
-  {customId: 3, parentCustomId: 1, name: 'Node 3'},
-  {customId: 4, parentCustomId: 1, name: 'Node 4'},
-  {customId: 5, parentCustomId: 2, name: 'Node 5'},
-  {customId: 6, parentCustomId: 3, name: 'Node 6'},
-];
-
-const TREE_MOCK_ITEMS = [
-  {
-    customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
-      {
-        customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: [
-          {customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []},
-        ]
-      },
-      {customId: 4, parentCustomId: 1, name: 'Node 4', customChildren: []},
-    ]
-  },
-  {
-    customId: 2, parentCustomId: null, name: 'Node 2', customChildren: [
-      {customId: 5, parentCustomId: 2, name: 'Node 5', customChildren: []},
-    ]
-  },
-];
+function getMockedTree(parentCustomId: any = null): any[] {
+  return [
+    {
+      customId: 1, parentCustomId, name: 'Node 1', customChildren: [
+        {
+          customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: [
+            {customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []},
+          ]
+        },
+        {customId: 4, parentCustomId: 1, name: 'Node 4', customChildren: []},
+      ]
+    },
+    {
+      customId: 2, parentCustomId, name: 'Node 2', customChildren: [
+        {customId: 5, parentCustomId: 2, name: 'Node 5', customChildren: []},
+      ]
+    },
+  ]
+}
 
 const TREE_MOCK_ITEMS2 = [
   {
@@ -59,7 +62,7 @@ describe('Tree utils methods', () => {
   let mock: any;
 
   beforeEach(() => {
-    mock = JSON.parse(JSON.stringify(TREE_MOCK_ITEMS));
+    mock = JSON.parse(JSON.stringify(getMockedTree(null)));
   })
 
   it('should setup converter with defaults when parameter is not provided', () => {
@@ -69,15 +72,15 @@ describe('Tree utils methods', () => {
   });
 
   it('should convert list to tree', () => {
-    expect(treeUtils.list2Tree(LIST_MOCK_ITEMS)).toEqual(TREE_MOCK_ITEMS);
+    expect(treeUtils.list2Tree(getMockedList())).toEqual(getMockedTree());
   });
 
   it('should convert tree to list', () => {
-    expect(treeUtils.tree2List(TREE_MOCK_ITEMS).sort((a: any, b: any) => a.customId - b.customId)).toEqual(LIST_MOCK_ITEMS);
+    expect(treeUtils.tree2List(getMockedTree()).sort((a: any, b: any) => a.customId - b.customId)).toEqual(getMockedList());
   });
 
   it('should get node by given customId', () => {
-    expect(treeUtils.get(TREE_MOCK_ITEMS, 6)).toEqual({customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []});
+    expect(treeUtils.get(getMockedTree(), 6)).toEqual({customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []});
   });
 
   it('should not fail, when children prop is missing', () => {
