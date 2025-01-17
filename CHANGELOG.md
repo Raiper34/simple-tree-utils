@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.2.0](https://github.com/Raiper34/simple-tree-utils/compare/2.1.0...2.2.0)
+
+- feat(method): add method now supports adding multiple items at once [`d4f4d5d`](https://github.com/Raiper34/simple-tree-utils/commit/d4f4d5dc4ed6d7e36fbc8d3cca3e106b1b9e453e)
+
 #### [2.1.0](https://github.com/Raiper34/simple-tree-utils/compare/2.0.0...2.1.0)
+
+> 8 January 2025
 
 - feat(list2tree): add ability to define custom tree roots [`#17`](https://github.com/Raiper34/simple-tree-utils/issues/17)
 - docs(changelog): add changelog to project [`2bc7738`](https://github.com/Raiper34/simple-tree-utils/commit/2bc7738a31bcad8617e80267e4c619385d26f885)
