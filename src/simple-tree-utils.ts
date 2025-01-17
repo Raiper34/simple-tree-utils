@@ -166,18 +166,22 @@ export class TreeUtils {
    * @param tree - tree structure for node adding
    * @param parentId - identifier of parent node, null if new node should be on root level
    * @param childData - data of new node
+   * @param anotherChildData - data of new additional nodes
    */
-  add(tree: any[], parentId: any, childData: any): void {
+  add(tree: any[], parentId: any, childData: any, ...anotherChildData: any[]): void {
     if (parentId == null) {
-      tree.push(childData);
+      tree.push(childData, ...anotherChildData);
       return;
     }
     const index = tree.findIndex(item => item[this.idProp] == parentId);
     if (index != -1) {
-      tree[index][this.childrenProp].push({[this.childrenProp]: [], ...childData});
+      tree[index][this.childrenProp].push(
+          {[this.childrenProp]: [], ...childData},
+          ...anotherChildData.map(item => ({[this.childrenProp]: [], ...item}))
+      );
       return;
     }
-    tree.forEach(item => this.add(item[this.childrenProp], parentId, childData));
+    tree.forEach(item => this.add(item[this.childrenProp], parentId, childData, ...anotherChildData));
   }
 
   /**
