@@ -191,7 +191,7 @@ export class TreeUtils {
    * @param childData - data of new node
    * @param anotherChildData - data of new additional nodes
    */
-  _add(operation: 'push' | 'unshift', tree: any[], parentId: any, childData: any, ...anotherChildData: any[]): void {
+  private _add(operation: 'push' | 'unshift', tree: any[], parentId: any, childData: any, ...anotherChildData: any[]): void {
     if (parentId == null) {
       tree[operation](childData, ...anotherChildData);
       return;
