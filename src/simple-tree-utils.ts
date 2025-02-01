@@ -162,20 +162,43 @@ export class TreeUtils {
   }
 
   /**
-   * Method to add new node to tree (mutable operation!)
+   * Method to add new node to tree, node will be added as last child (mutable operation!)
    * @param tree - tree structure for node adding
    * @param parentId - identifier of parent node, null if new node should be on root level
    * @param childData - data of new node
    * @param anotherChildData - data of new additional nodes
    */
   add(tree: any[], parentId: any, childData: any, ...anotherChildData: any[]): void {
+    this._add('push', tree, parentId, childData, ...anotherChildData);
+  }
+
+  /**
+   * Method to add new node to tree, node will be added as last child (mutable operation!)
+   * @param tree - tree structure for node adding
+   * @param parentId - identifier of parent node, null if new node should be on root level
+   * @param childData - data of new node
+   * @param anotherChildData - data of new additional nodes
+   */
+  addUnshift(tree: any[], parentId: any, childData: any, ...anotherChildData: any[]): void {
+    this._add('unshift', tree, parentId, childData, ...anotherChildData);
+  }
+
+  /**
+   * Method to add new node to tree at the end or at the beginning (helper method)
+   * @param operation - how item should be added into tree
+   * @param tree - tree structure for node adding
+   * @param parentId - identifier of parent node, null if new node should be on root level
+   * @param childData - data of new node
+   * @param anotherChildData - data of new additional nodes
+   */
+  _add(operation: 'push' | 'unshift', tree: any[], parentId: any, childData: any, ...anotherChildData: any[]): void {
     if (parentId == null) {
-      tree.push(childData, ...anotherChildData);
+      tree[operation](childData, ...anotherChildData);
       return;
     }
     const index = tree.findIndex(item => item[this.idProp] == parentId);
     if (index != -1) {
-      tree[index][this.childrenProp].push(
+      tree[index][this.childrenProp][operation](
           {[this.childrenProp]: [], ...childData},
           ...anotherChildData.map(item => ({[this.childrenProp]: [], ...item}))
       );
