@@ -1,6 +1,6 @@
 {
   "name": "simple-tree-utils",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Simple Tree Utils is the library to convert and manipulate with tree-like structures.",
   "keywords": [
     "tree",

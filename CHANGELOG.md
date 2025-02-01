@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.3.0](https://github.com/Raiper34/simple-tree-utils/compare/2.2.0...2.3.0)
+
+- feat(addunshift): addUnshift method to add item as first child, instead of last one [`59d761b`](https://github.com/Raiper34/simple-tree-utils/commit/59d761b286a95b4d7e459aabd716ba84ce13e918)
+
 #### [2.2.0](https://github.com/Raiper34/simple-tree-utils/compare/2.1.0...2.2.0)
+
+> 17 January 2025
 
 - feat(method): add method now supports adding multiple items at once [`d4f4d5d`](https://github.com/Raiper34/simple-tree-utils/commit/d4f4d5dc4ed6d7e36fbc8d3cca3e106b1b9e453e)
 
