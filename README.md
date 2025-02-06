@@ -35,7 +35,7 @@ npm install simple-tree-utils --save
 ```
 or with jsdelivr
 ```html
-<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@2.3.1/dist/simple-tree-utils.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@3.0.0/dist/simple-tree-utils.iife.js"></script>
 ```
 
 # 📚 Documentation
@@ -98,7 +98,7 @@ treeUtils.tree2List(tree);
 You can also use this library in the browser without compiling using jsDelivr.
 Import script into HTML file, and you can access classes through the global `treeUtils` object.
 ```html
-<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@2.3.1/dist/simple-tree-utils.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@3.0.0/dist/simple-tree-utils.iife.js"></script>
 <script>
     const utils = new simpleTreeUtils.TreeUtils();
     const tree = utils.list2Tree(items);

@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [3.0.0](https://github.com/Raiper34/simple-tree-utils/compare/2.3.1...3.0.0)
+
+- build(vite): add vite to build everrything with one tool and remove browserify and uglify [`18a70be`](https://github.com/Raiper34/simple-tree-utils/commit/18a70bec173263f03459ad331af4e67f7a775db6)
+- docs(readme): automatic version dump [`662e335`](https://github.com/Raiper34/simple-tree-utils/commit/662e335739bf18d4d58535a39927c87ac83ec2ae)
+- docs(website): modernize website api documentation [`7119871`](https://github.com/Raiper34/simple-tree-utils/commit/71198715b7a669d012bd4bc0587a76b1bbf77994)
+- docs(readme): improve style of readme [`ab3f309`](https://github.com/Raiper34/simple-tree-utils/commit/ab3f309189bb3636a9b8780c472c4665f23b3015)
+
 #### [2.3.1](https://github.com/Raiper34/simple-tree-utils/compare/2.3.0...2.3.1)
+
+> 1 February 2025
 
 - fix(method): make helper _add method as private [`cc690de`](https://github.com/Raiper34/simple-tree-utils/commit/cc690ded79c3909ddb8f76afaea8170b719f1616)
 
