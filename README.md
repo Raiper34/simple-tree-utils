@@ -22,15 +22,21 @@ models/classes, I needed to use my own data without no extra instantiating,
 or adding extra methods/properties into the working model.
 
 ### Content
-- [🚀 Instalation](#-instalation)
+- [🚀 Installation](#-Installation)
 - [📚 Documentation](#-documentation)
 - [💻 Usage](#-usage)
-    - [🌐 Usage in browser](#usage-in-browser)
-- [📖 License](#-license)
+    - [🌐 Browser](#-browser)
+- [⚖️ License](#-license)
 
-# 🚀 Instalation
-Install library using npm `npm install simple-tree-utils --save` and import main class
-into your code base `import {TreeUtils} from 'simple-tree-utils';` .
+# 🚀 Installation
+Install **Simple Tree Utils** library using npm
+```sh
+npm install simple-tree-utils --save
+```
+or with jsdelivr
+```html
+<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@2.3.1/dist/simple-tree-utils.iife.js"></script>
+```
 
 # 📚 Documentation
 For more details and complete documentation check: https://simple-tree-utils.netlify.app/
@@ -88,16 +94,16 @@ If you need a list again, you can convert the tree back to a list using `treeUti
 treeUtils.tree2List(tree);
 ```
 
-# 🌐 Usage in browser
+# 🌐 Browser
 You can also use this library in the browser without compiling using jsDelivr.
 Import script into HTML file, and you can access classes through the global `treeUtils` object.
 ```html
-<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@2.3.1/dist/browser-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@2.3.1/dist/simple-tree-utils.iife.js"></script>
 <script>
-    const utils = new treeUtils.TreeUtils();
+    const utils = new simpleTreeUtils.TreeUtils();
     const tree = utils.list2Tree(items);
 </script>
 ```
 
-# 📖 License
-MIT
+# ⚖️ License  
+[MIT](https://choosealicense.com/licenses/mit/)
