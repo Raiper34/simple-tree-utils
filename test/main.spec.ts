@@ -52,6 +52,16 @@ const TREE_MOCK_ITEMS2 = [
   },
 ];
 
+const TREE_MOCK_ITEMS_NO_CHILDREN = [
+  {
+    customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
+      {customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: [{customId: 6, parentCustomId: 2, name: 'Node 6'}]},
+      {customId: 4, parentCustomId: 1, name: 'Node 4'},
+    ]
+  },
+  {customId: 2, parentCustomId: null, name: 'Node 2', customChildren: [{customId: 5, parentCustomId: 2, name: 'Node 5'}]},
+];
+
 const treeUtils = new TreeUtils({
   idProp: 'customId',
   parentIdProp: 'parentCustomId',
@@ -78,6 +88,10 @@ describe('Tree utils methods', () => {
 
   it('should convert tree to list', () => {
     expect(treeUtils.tree2List(getMockedTree()).sort((a: any, b: any) => a.customId - b.customId)).toEqual(getMockedList());
+  });
+
+  it('should convert tree to list when some nodes does not contains children prop', () => {
+    expect(treeUtils.tree2List(TREE_MOCK_ITEMS_NO_CHILDREN).sort((a: any, b: any) => a.customId - b.customId)).toEqual(getMockedList());
   });
 
   it('should get node by given customId', () => {

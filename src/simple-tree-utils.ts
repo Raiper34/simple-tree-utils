@@ -96,7 +96,7 @@ export class TreeUtils {
       return [
         ...acc,
         {...rest, [this.parentIdProp]: parentId},
-        ...(children.length ? this._tree2List(children, rest[this.idProp]) : [])
+        ...(children?.length ? this._tree2List(children, rest[this.idProp]) : [])
       ];
     }, [])
   }
