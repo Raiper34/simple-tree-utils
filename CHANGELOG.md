@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [3.0.0](https://github.com/Raiper34/simple-tree-utils/compare/2.3.1...3.0.0)
+#### [3.0.1](https://github.com/Raiper34/simple-tree-utils/compare/3.0.0...3.0.1)
+
+- fix(tree2list): ability to parse tree with nodes that does not contain children property [`30e8f49`](https://github.com/Raiper34/simple-tree-utils/commit/30e8f4957a9ef10cb63d367b3121299d4f491b8f)
+
+### [3.0.0](https://github.com/Raiper34/simple-tree-utils/compare/2.3.1...3.0.0)
+
+> 6 February 2025
 
 - build(vite): add vite to build everrything with one tool and remove browserify and uglify [`18a70be`](https://github.com/Raiper34/simple-tree-utils/commit/18a70bec173263f03459ad331af4e67f7a775db6)
 - docs(readme): automatic version dump [`662e335`](https://github.com/Raiper34/simple-tree-utils/commit/662e335739bf18d4d58535a39927c87ac83ec2ae)
