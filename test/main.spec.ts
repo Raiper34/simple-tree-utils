@@ -162,6 +162,28 @@ describe('Tree utils methods', () => {
     expect(mock).toEqual(out);
   });
 
+  it('should iterate over each node', () => {
+    treeUtils.forEach(mock, item => item.name = `I${item.name}`);
+    const out = [
+      {
+        customId: 1, parentCustomId: null, name: 'INode 1', customChildren: [
+          {
+            customId: 3, parentCustomId: 1, name: 'INode 3', customChildren: [
+              {customId: 6, parentCustomId: 3, name: 'INode 6', customChildren: []},
+            ]
+          },
+          {customId: 4, parentCustomId: 1, name: 'INode 4', customChildren: []},
+        ]
+      },
+      {
+        customId: 2, parentCustomId: null, name: 'INode 2', customChildren: [
+          {customId: 5, parentCustomId: 2, name: 'INode 5', customChildren: []},
+        ]
+      },
+    ];
+    expect(mock).toEqual(out);
+  });
+
   it('should add node to tree as first child of given node', () => {
     treeUtils.addUnshift(mock, 1, {customId: 7, parentCustomId: 4, name: 'Node 7', customChildren: []});
     const out = [

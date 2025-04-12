@@ -132,6 +132,18 @@ export class TreeUtils {
   }
 
   /**
+   * Method to iterate over all nodes
+   * @param tree - tree structure to iterate over
+   * @param fn - callback function to perform
+   */
+  forEach(tree: any[], fn: (item: any) => any): void {
+    tree?.forEach(item => {
+      fn(item);
+      this.forEach(item[this.childrenProp], fn);
+    });
+  }
+
+  /**
    * Method to find all nodes in tree structure by given callback function
    * @param tree - tree structure to search in
    * @param fn - callback function to find all nodes
@@ -160,7 +172,7 @@ export class TreeUtils {
 
   /**
    * Method to delete node in tree by given callback function (mutable operation!)
-   * @param tree - tree structure to search in
+   * @param tree - tree structure for node deleting
    * @param fn - callback function to remove all nodes
    * @returns deleted nodes
    * @example
