@@ -180,13 +180,13 @@ export class TreeUtils {
    * utils.deleteBy(tree, item => item.id === myId);
    * ```
    */
-  deleteBy(tree: any[] = [], fn: (item: any) => boolean): any[] {
+  deleteBy(tree: any[], fn: (item: any) => boolean): any[] {
     const indexesToRemove = tree
         .filter(item => fn(item))
         .map((_item, index) => index)
         .reverse();
     const removedItems = indexesToRemove.reduce<any>((acc, curr) => ([...acc, ...tree.splice(curr, 1)]), []);
-    return tree.reduce((acc, curr) => [...acc, ...this.deleteBy(curr[this.childrenProp], fn)], removedItems)
+    return tree.reduce((acc, curr) => [...acc, ...this.deleteBy(curr[this.childrenProp] ?? [], fn)], removedItems)
   }
 
   /**
