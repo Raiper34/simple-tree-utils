@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [3.1.0](https://github.com/Raiper34/simple-tree-utils/compare/3.0.1...3.1.0)
+
+- feat(deleteby): add deleteBy method to delete nodes by given callback [`c62afc9`](https://github.com/Raiper34/simple-tree-utils/commit/c62afc9059b2f7c6a81ef488ede2c419f43a948c)
+- feat(computepaths): add computePaths method to compute paths for all nodes [`e30e6a8`](https://github.com/Raiper34/simple-tree-utils/commit/e30e6a8713471a0fc9976f6e5b16248fec767198)
+- feat(foreach): add forEach moethod to iterate over each nodes [`1352f44`](https://github.com/Raiper34/simple-tree-utils/commit/1352f44a409d7726ea2e68a3983b188f555bf912)
+
 #### [3.0.1](https://github.com/Raiper34/simple-tree-utils/compare/3.0.0...3.0.1)
+
+> 11 April 2025
 
 - fix(tree2list): ability to parse tree with nodes that does not contain children property [`30e8f49`](https://github.com/Raiper34/simple-tree-utils/commit/30e8f4957a9ef10cb63d367b3121299d4f491b8f)
 
