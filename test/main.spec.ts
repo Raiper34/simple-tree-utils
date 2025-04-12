@@ -184,6 +184,28 @@ describe('Tree utils methods', () => {
     expect(mock).toEqual(out);
   });
 
+  it('should compute paths for nodes', () => {
+    treeUtils.computePaths(mock, 'name');
+    const out = [
+      {
+        customId: 1, parentCustomId: null, name: 'Node 1', path: '/', customChildren: [
+          {
+            customId: 3, parentCustomId: 1, name: 'Node 3', path: '/Node 1/', customChildren: [
+              {customId: 6, parentCustomId: 3, name: 'Node 6', path: '/Node 1/Node 3/', customChildren: []},
+            ]
+          },
+          {customId: 4, parentCustomId: 1, name: 'Node 4', path: '/Node 1/', customChildren: []},
+        ]
+      },
+      {
+        customId: 2, parentCustomId: null, name: 'Node 2', path: '/', customChildren: [
+          {customId: 5, parentCustomId: 2, name: 'Node 5', path: '/Node 2/', customChildren: []},
+        ]
+      },
+    ];
+    expect(mock).toEqual(out);
+  });
+
   it('should add node to tree as first child of given node', () => {
     treeUtils.addUnshift(mock, 1, {customId: 7, parentCustomId: 4, name: 'Node 7', customChildren: []});
     const out = [

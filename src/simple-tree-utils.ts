@@ -515,6 +515,23 @@ export class TreeUtils {
   }
 
   /**
+   * Method to compute paths for nodes (mutable operation)
+   * path property will be added into each node
+   * e.g. {path: "parent/child"...}
+   * @param tree - tree structure
+   * @param pathComputationProperty - property to use for path computation
+   * @param delimiter - to delimit path
+   * @param pathProperty - property where path will be stored
+   * @param originPath - path of top level nodes
+   */
+  computePaths(tree: any[], pathComputationProperty: string, delimiter = '/', pathProperty = 'path', originPath = '/'): void {
+    tree?.forEach(item => {
+      item[pathProperty] = originPath;
+      this.computePaths(item[this.childrenProp], pathComputationProperty, delimiter, pathProperty, `${item.path}${item[pathComputationProperty]}${delimiter}`);
+    });
+  }
+
+  /**
    * Helper method to deep clone object
    * @param obj - object to be cloned
    * @private
