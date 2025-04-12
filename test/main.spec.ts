@@ -107,7 +107,7 @@ describe('Tree utils methods', () => {
   });
 
   it('should delete node by given customId', () => {
-    treeUtils.delete(mock, 6);
+    const deleted = treeUtils.delete(mock, 6);
     const out = [
       {
         customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
@@ -122,7 +122,43 @@ describe('Tree utils methods', () => {
           {customId: 5, parentCustomId: 2, name: 'Node 5', customChildren: []},
         ]
       },
-    ]
+    ];
+    expect(deleted).toEqual({customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []});
+    expect(mock).toEqual(out);
+  });
+
+  it('should delete node returns null when not found', () => {
+    const deleted = treeUtils.delete(mock, 100);
+    expect(deleted).toEqual(null);
+  });
+
+  it('should delete node when there is no children property', () => {
+    const input = [{customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
+      {customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: [
+        {customId: 6, parentCustomId: 3, name: 'Node 6'}]},
+        {customId: 4, parentCustomId: 1, name: 'Node 4'}]},
+    ];
+    const deleted = treeUtils.deleteBy(input, item => item.customId === 6);
+    expect(deleted).toEqual([{customId: 6, parentCustomId: 3, name: 'Node 6'}]);
+  });
+
+  it('should delete node by given callback', () => {
+    const deleted = treeUtils.deleteBy(mock, item => item.customId === 5 || item.customId === 6);
+    const out = [
+      {
+        customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
+          {
+            customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: []
+          },
+          {customId: 4, parentCustomId: 1, name: 'Node 4', customChildren: []},
+        ]
+      },
+      {customId: 2, parentCustomId: null, name: 'Node 2', customChildren: []},
+    ];
+    expect(deleted).toEqual([
+      {customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []},
+      {customId: 5, parentCustomId: 2, name: 'Node 5', customChildren: []},
+    ]);
     expect(mock).toEqual(out);
   });
 

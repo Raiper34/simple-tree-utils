@@ -152,13 +152,29 @@ export class TreeUtils {
    * Method to delete node in tree by given id (mutable operation!)
    * @param tree - tree structure for node deleting
    * @param id - identifier of node to delete
+   * @returns deleted node, if nothing deleted then returns null
    */
   delete(tree: any[], id: any): any {
-    const index = tree.findIndex(item => item[this.idProp] == id);
-    if (index != -1) {
-      return tree.splice(index, 1)[0];
-    }
-    return tree.reduce((acc, curr) => acc || this.delete(curr[this.childrenProp], id), null);
+    return this.deleteBy(tree, item => item[this.idProp] === id)[0] || null;
+  }
+
+  /**
+   * Method to delete node in tree by given callback function (mutable operation!)
+   * @param tree - tree structure to search in
+   * @param fn - callback function to remove all nodes
+   * @returns deleted nodes
+   * @example
+   * ```ts
+   * utils.deleteBy(tree, item => item.id === myId);
+   * ```
+   */
+  deleteBy(tree: any[] = [], fn: (item: any) => boolean): any[] {
+    const indexesToRemove = tree
+        .filter(item => fn(item))
+        .map((_item, index) => index)
+        .reverse();
+    const removedItems = indexesToRemove.reduce<any>((acc, curr) => ([...acc, ...tree.splice(curr, 1)]), []);
+    return tree.reduce((acc, curr) => [...acc, ...this.deleteBy(curr[this.childrenProp], fn)], removedItems)
   }
 
   /**
@@ -173,7 +189,7 @@ export class TreeUtils {
   }
 
   /**
-   * Method to add new node to tree, node will be added as last child (mutable operation!)
+   * Method to add new node to tree, node will be added as first child (mutable operation!)
    * @param tree - tree structure for node adding
    * @param parentId - identifier of parent node, null if new node should be on root level
    * @param childData - data of new node
