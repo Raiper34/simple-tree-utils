@@ -182,8 +182,9 @@ export class TreeUtils {
    */
   deleteBy(tree: any[], fn: (item: any) => boolean): any[] {
     const indexesToRemove = tree
-        .filter(item => fn(item))
-        .map((_item, index) => index)
+        .map((item, index) => ({index, filter: fn(item)}))
+        .filter(({filter}) => filter)
+        .map(({index}) => index)
         .reverse();
     const removedItems = indexesToRemove.reduce<any>((acc, curr) => ([...acc, ...tree.splice(curr, 1)]), []);
     return tree.reduce((acc, curr) => [...acc, ...this.deleteBy(curr[this.childrenProp] ?? [], fn)], removedItems)
