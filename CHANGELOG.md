@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [3.1.2](https://github.com/Raiper34/simple-tree-utils/compare/3.1.1...3.1.2)
+
+- fix(delete): fix delete and deleteBy methods, because implementation did not work properly [`64dc710`](https://github.com/Raiper34/simple-tree-utils/commit/64dc7109753b19214fc8fb55c203da8f589ab4ba)
+
 #### [3.1.1](https://github.com/Raiper34/simple-tree-utils/compare/3.1.0...3.1.1)
+
+> 12 April 2025
 
 - fix(deleteby): fix deleteBy filter is not function bug [`0f91992`](https://github.com/Raiper34/simple-tree-utils/commit/0f919922bfe7491f62edebb5df6183f14c745202)
 
