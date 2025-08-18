@@ -162,6 +162,41 @@ describe('Tree utils methods', () => {
     expect(mock).toEqual(out);
   });
 
+  it('should delete node by given callback - complex deleting between', () => {
+    const mock = [
+      {
+        customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
+          {
+            customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: [
+              {customId: 4, parentCustomId: 3, name: 'Node 4', customChildren: []},
+              {customId: 5, parentCustomId: 3, name: 'Node 5', customChildren: []},
+              {customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []},
+            ]
+          },
+        ]
+      },
+      {customId: 2, parentCustomId: null, name: 'Node 2', customChildren: []},
+    ];
+    const deleted = treeUtils.deleteBy(mock, item => item.customId % 2 === 0);
+    const out = [
+      {
+        customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
+          {
+            customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: [
+              {customId: 5, parentCustomId: 3, name: 'Node 5', customChildren: []},
+            ]
+          },
+        ]
+      },
+    ];
+    expect(deleted).toEqual([
+      {customId: 2, parentCustomId: null, name: 'Node 2', customChildren: []},
+      {customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []},
+      {customId: 4, parentCustomId: 3, name: 'Node 4', customChildren: []},
+    ]);
+    expect(mock).toEqual(out);
+  });
+
   it('should iterate over each node', () => {
     treeUtils.forEach(mock, item => item.name = `I${item.name}`);
     const out = [
