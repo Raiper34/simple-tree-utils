@@ -164,10 +164,11 @@ export class TreeUtils {
    * Method to delete node in tree by given id (mutable operation!)
    * @param tree - tree structure for node deleting
    * @param id - identifier of node to delete
-   * @returns deleted node, if nothing deleted then returns null
+   * @param anotherIds - identifiers of nodes to delete
+   * @returns deleted nodes
    */
-  delete(tree: any[], id: any): any {
-    return this.deleteBy(tree, item => item[this.idProp] === id)[0] || null;
+  delete(tree: any[], id: any, ...anotherIds: any[]): any {
+    return this.deleteBy(tree, item => [id, ...anotherIds].find(id2Delete=> item[this.idProp] === id2Delete));
   }
 
   /**

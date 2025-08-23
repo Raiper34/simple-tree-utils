@@ -123,13 +123,36 @@ describe('Tree utils methods', () => {
         ]
       },
     ];
-    expect(deleted).toEqual({customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []});
+    expect(deleted).toEqual([{customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []}]);
     expect(mock).toEqual(out);
   });
 
-  it('should delete node returns null when not found', () => {
+  it('should delete multiple nodes by given customIds', () => {
+    const deleted = treeUtils.delete(mock, 6, 3, 5);
+    const out = [
+      {
+        customId: 1, parentCustomId: null, name: 'Node 1', customChildren: [
+          {customId: 4, parentCustomId: 1, name: 'Node 4', customChildren: []},
+        ]
+      },
+      {
+        customId: 2, parentCustomId: null, name: 'Node 2', customChildren: []
+      },
+    ];
+    expect(deleted).toEqual([
+      {
+        customId: 3, parentCustomId: 1, name: 'Node 3', customChildren: [
+          {customId: 6, parentCustomId: 3, name: 'Node 6', customChildren: []},
+        ]
+      },
+      {customId: 5, parentCustomId: 2, name: 'Node 5', customChildren: []}
+    ]);
+    expect(mock).toEqual(out);
+  });
+
+  it('should delete node returns empty array when not found', () => {
     const deleted = treeUtils.delete(mock, 100);
-    expect(deleted).toEqual(null);
+    expect(deleted).toEqual([]);
   });
 
   it('should delete node when there is no children property', () => {
