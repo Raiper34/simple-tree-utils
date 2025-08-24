@@ -156,7 +156,7 @@ export class TreeUtils {
   filter(tree: any[], fn: (item: any) => boolean): any {
     const nodes = tree.filter(item => fn(item));
     return tree.reduce((acc, curr) => (
-        [...acc, ...(curr[this.childrenProp].length ? this.filter(curr[this.childrenProp], fn) : [])]
+        [...acc, ...(curr[this.childrenProp]?.length ? this.filter(curr[this.childrenProp], fn) : [])]
     ), nodes);
   }
 
@@ -367,7 +367,7 @@ export class TreeUtils {
    * @returns leafs of nodes
    */
   getLeafs(tree: any[], id: any): any {
-    return this.filter(this.getSubTree(tree, id), item => !item[this.childrenProp].length);
+    return this.filter(this.getSubTree(tree, id), item => !item[this.childrenProp]?.length);
   }
 
   /**
@@ -437,7 +437,7 @@ export class TreeUtils {
    * @returns degree of tree
    */
   getTreeDegree(tree: any[]): number {
-    return tree.reduce((acc, curr) => Math.max(acc, curr[this.childrenProp].length, this.getTreeDegree(curr[this.childrenProp])), 0);
+    return (tree ?? []).reduce((acc, curr) => Math.max(acc, curr[this.childrenProp]?.length ?? 0, this.getTreeDegree(curr[this.childrenProp])), 0);
   }
 
   /**

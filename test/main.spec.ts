@@ -497,6 +497,10 @@ describe('Tree utils methods', () => {
     expect(treeUtils.getTreeDegree(TREE_MOCK_ITEMS2)).toBe(3);
   });
 
+  it('should get tree degree of tree when some nodes does not contains children prop', () => {
+    expect(treeUtils.getTreeDegree(TREE_MOCK_ITEMS_NO_CHILDREN)).toBe(2);
+  });
+
   it('should get nodes at specific level', () => {
     expect(treeUtils.getNodesAtLevel(mock, 0).map((item: any) => item.customId)).toEqual([1, 2]);
     expect(treeUtils.getNodesAtLevel(mock, 1).map((item: any) => item.customId)).toEqual([3, 4, 5]);
