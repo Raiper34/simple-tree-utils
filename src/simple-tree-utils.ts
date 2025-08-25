@@ -1,35 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/**
- * IConfig interface for configuring whole class during instantiating
- */
-export interface IConfig {
-  /**
-   * Name of unique identifier property in nodes
-   */
-  idProp?: string,
-  /**
-   * Name of parent identifier property in nodes
-   */
-  parentIdProp?: string,
-  /**
-   * Name of property where child nodes are stored
-   */
-  childrenProp?: string,
-}
-
-/**
- * Default name of unique identifier property in nodes
- */
-const DEFAULT_ID_PROP = 'id';
-/**
- * Default name of parent identifier property in nodes
- */
-const DEFAULT_PARENT_ID_PROP = 'parentId';
-/**
- * Default name of property where child nodes are stored
- */
-const DEFAULT_CHILDREN_PROP = 'children';
+import {IConfig} from "./iconfig.ts";
+import {DefaultConfig} from "./defaults.ts";
 
 /**
  * Class to transform and manipulate tree like structures
@@ -54,9 +25,9 @@ export class TreeUtils {
    * @param config - to configure class, if configuration option is omitted, default one is used
    */
   constructor(config?: IConfig) {
-    this.idProp = config?.idProp || DEFAULT_ID_PROP;
-    this.parentIdProp = config?.parentIdProp || DEFAULT_PARENT_ID_PROP;
-    this.childrenProp = config?.childrenProp || DEFAULT_CHILDREN_PROP;
+    this.idProp = config?.idProp || DefaultConfig.idProp!;
+    this.parentIdProp = config?.parentIdProp || DefaultConfig.parentIdProp!;
+    this.childrenProp = config?.childrenProp || DefaultConfig.childrenProp!;
   }
 
   /**
