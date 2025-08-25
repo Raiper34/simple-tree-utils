@@ -25,17 +25,24 @@ or adding extra methods/properties into the working model.
 - [🚀 Installation](#-Installation)
 - [📚 Documentation](#-documentation)
 - [💻 Usage](#-usage)
-    - [🌐 Browser](#-browser)
 - [⚖️ License](#-license)
 
 # 🚀 Installation
-Install **Simple Tree Utils** library using npm
+Install **Simple Tree Utils** library using `npm`
 ```sh
 npm install simple-tree-utils --save
 ```
-or with jsdelivr
+and import library like
+```ts
+import { TreeUtils } from 'simple-tree-utils'
+```
+Or add directly into an HTML file with `jsdelivr` CDN
 ```html
 <script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@3.1.2/dist/simple-tree-utils.iife.js"></script>
+<script>
+  const TreeUtils = simpleTreeUtils.TreeUtils;
+  ...
+</script>
 ```
 
 # 📚 Documentation
@@ -92,17 +99,6 @@ const node = treeUtils.find(tree, item => item.id === 2);
 If you need a list again, you can convert the tree back to a list using `treeUtils.tree2List` method
 ```ts
 treeUtils.tree2List(tree);
-```
-
-# 🌐 Browser
-You can also use this library in the browser without compiling using jsDelivr.
-Import script into HTML file, and you can access classes through the global `treeUtils` object.
-```html
-<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@3.1.2/dist/simple-tree-utils.iife.js"></script>
-<script>
-    const utils = new simpleTreeUtils.TreeUtils();
-    const tree = utils.list2Tree(items);
-</script>
 ```
 
 # ⚖️ License  
