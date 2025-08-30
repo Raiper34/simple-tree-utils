@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [3.2.1](https://github.com/Raiper34/simple-tree-utils/compare/3.2.0...3.2.1)
+
+- fix(exports): fix ts extension in index exports [`690fb73`](https://github.com/Raiper34/simple-tree-utils/commit/690fb73533349ff90dcbc75426586d59761d9185)
+
 #### [3.2.0](https://github.com/Raiper34/simple-tree-utils/compare/3.1.2...3.2.0)
+
+> 30 August 2025
 
 - feat(delete): allow delete multiple nodes in delete method [`#18`](https://github.com/Raiper34/simple-tree-utils/issues/18)
 - refactor(config): move config interface and config defaults into separated files [`a38b3f9`](https://github.com/Raiper34/simple-tree-utils/commit/a38b3f9cbd3bb3f1ad2e96560a9dd5d0e2acfd0c)
