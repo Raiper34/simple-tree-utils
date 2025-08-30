@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [3.2.2](https://github.com/Raiper34/simple-tree-utils/compare/3.2.1...3.2.2)
+
+- fix(imports): remove extensions from internal imports [`c2963cd`](https://github.com/Raiper34/simple-tree-utils/commit/c2963cdf3e75e063090302bfafa93186c1bb4121)
+
 #### [3.2.1](https://github.com/Raiper34/simple-tree-utils/compare/3.2.0...3.2.1)
+
+> 30 August 2025
 
 - fix(exports): fix ts extension in index exports [`690fb73`](https://github.com/Raiper34/simple-tree-utils/commit/690fb73533349ff90dcbc75426586d59761d9185)
 
