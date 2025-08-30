@@ -1,4 +1,4 @@
-import {IConfig} from "./iconfig.ts";
+import {IConfig} from "./iconfig";
 
 /**
  * Default configuration options of library

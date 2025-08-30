@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {IConfig} from "./iconfig.ts";
-import {DefaultConfig} from "./defaults.ts";
+import {IConfig} from "./iconfig";
+import {DefaultConfig} from "./defaults";
 
 /**
  * Class to transform and manipulate tree like structures
