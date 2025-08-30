@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [3.2.0](https://github.com/Raiper34/simple-tree-utils/compare/3.1.2...3.2.0)
+
+- feat(delete): allow delete multiple nodes in delete method [`#18`](https://github.com/Raiper34/simple-tree-utils/issues/18)
+- refactor(config): move config interface and config defaults into separated files [`a38b3f9`](https://github.com/Raiper34/simple-tree-utils/commit/a38b3f9cbd3bb3f1ad2e96560a9dd5d0e2acfd0c)
+- docs(readme): improve readme installation instructions [`b93eaba`](https://github.com/Raiper34/simple-tree-utils/commit/b93eaba5c80f2db86757696f669f1f71bb026559)
+- fix(children): fix methods, to be able to work also, when children property is undefined [`e4d24b2`](https://github.com/Raiper34/simple-tree-utils/commit/e4d24b22655f9a31d8a69a7cd093dc6ddec78c0b)
+
 #### [3.1.2](https://github.com/Raiper34/simple-tree-utils/compare/3.1.1...3.1.2)
+
+> 20 April 2025
 
 - fix(delete): fix delete and deleteBy methods, because implementation did not work properly [`64dc710`](https://github.com/Raiper34/simple-tree-utils/commit/64dc7109753b19214fc8fb55c203da8f589ab4ba)
 

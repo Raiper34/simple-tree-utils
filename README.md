@@ -38,7 +38,7 @@ import { TreeUtils } from 'simple-tree-utils'
 ```
 Or add directly into an HTML file with `jsdelivr` CDN
 ```html
-<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@3.1.2/dist/simple-tree-utils.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-tree-utils@3.2.0/dist/simple-tree-utils.iife.js"></script>
 <script>
   const TreeUtils = simpleTreeUtils.TreeUtils;
   ...
