@@ -536,4 +536,39 @@ describe('Tree utils methods', () => {
     expect(treeUtils.getPathNodes(mock, 5).map((item: any) => item.customId)).toEqual([2]);
     expect(treeUtils.getPathNodes(mock, 1).map((item: any) => item.customId)).toEqual([]);
   });
+
+  it('should get node by path', () => {
+    expect(treeUtils.getNodeByPath(mock, 'Node 1', 'name').customId).toBe(1);
+    expect(treeUtils.getNodeByPath(mock, 'Node 1/Node 3', 'name').customId).toBe(3);
+    expect(treeUtils.getNodeByPath(mock, 'Node 1/Node 3/Node 6', 'name').customId).toBe(6);
+    expect(treeUtils.getNodeByPath(mock, 'Node 1/Node 4', 'name').customId).toBe(4);
+    expect(treeUtils.getNodeByPath(mock, 'Node 2', 'name').customId).toBe(2);
+    expect(treeUtils.getNodeByPath(mock, 'Node 2/Node 5', 'name').customId).toBe(5);
+  });
+
+  it('should get node by path - path as array', () => {
+    expect(treeUtils.getNodeByPath(mock, ['Node 1', 'Node 3', 'Node 6'], 'name').customId).toBe(6);
+    expect(treeUtils.getNodeByPath(mock, ['Node 2'], 'name').customId).toBe(2);
+  });
+
+  it('should get node by path - custom delimiter', () => {
+    expect(treeUtils.getNodeByPath(mock, 'Node 1.Node 3.Node 6', 'name', '.').customId).toBe(6);
+    expect(treeUtils.getNodeByPath(mock, '.Node 2', 'name', '.').customId).toBe(2);
+  });
+
+  it('should get node by path - path as array', () => {
+    expect(treeUtils.getNodeByPath(mock, '/Node 1/Node 3/Node 6', 'name').customId).toBe(6);
+    expect(treeUtils.getNodeByPath(mock, '/Node 2', 'name').customId).toBe(2);
+  });
+
+  it('should get node by path - absolute like path', () => {
+    expect(treeUtils.getNodeByPath(mock, '/Node 1/Node 3/Node 6', 'name').customId).toBe(6);
+    expect(treeUtils.getNodeByPath(mock, '/Node 2', 'name').customId).toBe(2);
+  });
+
+  it('should get node by path - null when path does not exist', () => {
+    expect(treeUtils.getNodeByPath(mock, 'Node 5', 'name')).toBeNull();
+    expect(treeUtils.getNodeByPath(mock, 'Node 1/Node 3/Node 4', 'name')).toBeNull();
+    expect(treeUtils.getNodeByPath(mock, '/Node 1/Node 3/Node 6/Node 7', 'name')).toBeNull();
+  });
 });

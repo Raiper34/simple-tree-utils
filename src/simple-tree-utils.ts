@@ -504,6 +504,44 @@ export class TreeUtils {
     });
   }
 
+
+  /**
+   * Method to get node in tree structure by given string path
+   * @param tree - tree structure to search in
+   * @param path - path as array of names or string with delimiter
+   * @param nameProperty - name of property to use for path matching
+   * @param delimiter - delimiter to split path string (default is '/')
+   * @returns found node, otherwise null
+   * @example
+   * ```ts
+   * utils.getNodeByPath(tree, ['root', 'child'], 'name');
+   * utils.getNodeByPath(tree, 'root/child', 'name');
+   * ```
+   */
+  getNodeByPath(tree: any[], path: string | string[], nameProperty: any): any
+  getNodeByPath(tree: any[], path: string, nameProperty: string, delimiter = '/'): any {
+    const pathFragments = Array.isArray(path) ?
+        path :
+        path.split(delimiter).filter(fragment => fragment);
+    return this.getNodeByPathHelper(tree, pathFragments, nameProperty);
+  }
+
+  /**
+   * Helper method to get node in tree structure by given path recursively
+   * @param tree - tree structure to search in
+   * @param path - path as array of names
+   * @param nameProperty - name of property to use for path matching
+   * @private
+   * @returns found node, otherwise null
+   */
+  private getNodeByPathHelper(tree: any[], path: string[], nameProperty: string): any {
+    const [name, ...remainingPath] = path;
+    const pathNode = tree.find(item => item[nameProperty] === name);
+    return remainingPath.length && pathNode ?
+        this.getNodeByPathHelper(pathNode[this.childrenProp], remainingPath, nameProperty) :
+    pathNode ?? null;
+  }
+
   /**
    * Helper method to deep clone object
    * @param obj - object to be cloned
