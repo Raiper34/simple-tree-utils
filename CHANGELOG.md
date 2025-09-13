@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [3.3.0](https://github.com/Raiper34/simple-tree-utils/compare/3.2.2...3.3.0)
+
+- feat(getnodebypath): add new method to find node by path - getNodeByPath method [`e3174df`](https://github.com/Raiper34/simple-tree-utils/commit/e3174dfcbe2109810a8ff7989c931bfb08d8b526)
+- docs(typedoc): include all files from src folder in typedoc web documentation [`12f7659`](https://github.com/Raiper34/simple-tree-utils/commit/12f7659e3b5336c6868e18d2bf555e7cc054fbda)
+
 #### [3.2.2](https://github.com/Raiper34/simple-tree-utils/compare/3.2.1...3.2.2)
+
+> 30 August 2025
 
 - fix(imports): remove extensions from internal imports [`c2963cd`](https://github.com/Raiper34/simple-tree-utils/commit/c2963cdf3e75e063090302bfafa93186c1bb4121)
 
